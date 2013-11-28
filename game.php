@@ -55,12 +55,13 @@ echo 'data: '.json_encode($optionbar)."\n\n";
 $_SESSION['optionBarReload'] = true;
 }
 
-
+/*
 if (!$_SESSION['inventoryReload']) {
 echo 'event: inventory'."\n";
 echo 'data: '.json_encode($inventorywindow)."\n\n";
 $_SESSION['inventoryReload'] = true;
 }
+*/
 
 if (!$_SESSION['goongearReload']) {
 echo 'event: gearup'."\n";

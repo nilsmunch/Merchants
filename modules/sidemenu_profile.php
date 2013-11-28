@@ -12,7 +12,7 @@ echo $username;
 <div id="xp" style="text-align:center;font-size:10px;padding:4px">0 XP left to level up</div>
 
 <a href="#" onClick="showView('#result')" id="link_result" class="active" style="display:block"><img src="/media/art/button_hirelings.png">Servants</a>
-<a href="#" onClick="showView('#inventory')" id="link_inventory" style="display:block"><img src="/media/art/button_bag.png">Inventory</a>
+<a href="#" onClick="openInventory()" id="link_inventory" style="display:block"><img src="/media/art/button_bag.png">Inventory</a>
 <a href="#" onClick="openSkills()" id="link_skills" style="display:block"><img src="/media/art/icon_skills.png">Skills</a>
 <a href="#" onClick="openCrafting();showView('#crafting')" id="link_crafting" style="display:block"><img src="/media/art/button_craft.png">Crafting</a>
 <a href="#" onClick="openMarket();" id="link_marketplace" style="display:block"><img src="/media/art/button_market.png">Marketplace</a>

@@ -36,6 +36,7 @@ $_SESSION['mainscreenReload'] = false;
 function itemConsume(item) {
 	$.ajax({ url: "ajax_consume.php?item="+item}).done(function( msg ) {
     		document.getElementById("inventory").innerHTML = msg;
+    		openInventory();
 	});
 }
 
@@ -93,6 +94,14 @@ function openMarket() {
 	showView('#marketplace');
 	$.ajax({ url: "ajax_market.php"}).done(function( msg ) {
     		document.getElementById("marketplace").innerHTML = msg;
+	});
+}
+
+function openInventory() {
+    	document.getElementById("inventory").innerHTML = "Loading inventory...";
+	showView('#inventory');
+	$.ajax({ url: "ajax_inventory.php"}).done(function( msg ) {
+    		document.getElementById("inventory").innerHTML = msg;
 	});
 }
 
