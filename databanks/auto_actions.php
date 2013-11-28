@@ -543,22 +543,6 @@
       ),
     ),
   ),
-  'crafting_basespice' => 
-  array (
-    'title' => '',
-    'time' => 30,
-    'itemgain' => 'basespice',
-    'gearneed' => 'cooking',
-    'requirements' => 
-    array (
-      0 => 
-      array (
-        'type' => 'itemqty',
-        'item' => 'herb',
-        'cost' => 2,
-      ),
-    ),
-  ),
   'crafting_tool_fishrod' => 
   array (
     'title' => '',
@@ -678,6 +662,22 @@
       array (
         'type' => 'courage',
         'value' => 4,
+      ),
+    ),
+  ),
+  'crafting_basespice' => 
+  array (
+    'title' => '',
+    'time' => 30,
+    'itemgain' => 'basespice',
+    'gearneed' => 'cooking',
+    'requirements' => 
+    array (
+      0 => 
+      array (
+        'type' => 'itemqty',
+        'item' => 'herb',
+        'cost' => 2,
       ),
     ),
   ),

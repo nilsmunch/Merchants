@@ -5,6 +5,8 @@ include('../config.php');
 include('databanks/items.php');
 include('modules/inventoryitems.php');
 include('modules/inventoryicons.php');
+$time = date('U');
+$marketRespawn = 60*60*1;
 
 function processMultiplier($itemkey) {
 	global $itemdata;
@@ -15,9 +17,9 @@ function processMultiplier($itemkey) {
 }
 
 // SUPPLY AND DEMAND
+$g = $_SESSION['game_variables'];
 
 if ($_GET['action'] == 'buy') {
-	$g = $_SESSION['game_variables'];
 	$itemkey = $_GET['target'];
 	$pick = $itembank[$itemkey];
 
@@ -26,7 +28,9 @@ if ($_GET['action'] == 'buy') {
 	if ($pick['market_price_favorcoin']) {
 		$can = pricecheck('favor_coin',$pick['market_price_favorcoin'],true);
 	}
-
+	if (isset($g['market_outlet'][$itemkey]['quantity'])) {
+		$g['market_outlet'][$itemkey]['quantity']--;
+	}
 
 	if ($can) {
 		addToInventory($itemkey);
@@ -40,7 +44,6 @@ if ($_GET['action'] == 'buy') {
 
 
 if ($_GET['action'] == 'sell') {
-	$g = $_SESSION['game_variables'];
 	$itemkey = $_GET['target'];
 	$itemdata = $itembank[$itemkey];
 	processMultiplier($itemkey);
@@ -118,22 +121,35 @@ echo $demands;
 }
 
 
-/// FAVOR STORE
+/// OUTLET STORE
 if ($thisshop == 'outlet') {
-	echo 'Hello. Im gonna be right there';
 	$toolstore = array();
 	foreach ($itembank as $itemkey => $item) {
-		if ($item['storekey'] == $thisshop) {
-			$toolstore[$itemkey] = $item;
+		if ($item['storekey'] == $thisshop && $item['market_outlet_qty']) {
+			$outletstore[$itemkey] = $item;
 		}
 	}
 
 
 
-	echo '<div style="clear:both;text-align:center">General tools warehouse :</div>';
+	echo '<div style="clear:both;text-align:center">City common outlet :</div>';
 
-foreach ((array)$toolstore as $itmkey => $itemdata) {
-	$offers .= showItemBox($itemdata,0,'<a href="#" onClick="marketAction(\'buy\',\''.$itmkey.'\')">Buy ('.$itemdata['market_price'].'&curren;)</a>');
+foreach ((array)$outletstore as $itmkey => $itemdata) {
+	$respawn = $g['market_outlet'][$itmkey]['respawn'];
+	$item_respawn = ($respawn-$time)<=0;
+	if (!isset($g['market_outlet'][$itmkey]['quantity']) || $item_respawn) {
+		$g['market_outlet'][$itmkey]['quantity'] = $itemdata['market_outlet_qty'];
+		$g['market_outlet'][$itmkey]['respawn'] = date('U') + $marketRespawn;
+		$_SESSION['game_variables'] = $g;
+	}
+
+	$extra = timeFormulate($respawn-$time);
+	
+	if ($g['market_outlet'][$itmkey]['quantity'] > 0) {
+		$extra = '<a href="#" onClick="marketAction(\'buy\',\''.$itmkey.'\')">Buy ('.$itemdata['market_price'].'&curren;)</a> '.$g['market_outlet'][$itmkey]['quantity'].' left';
+	}
+	
+	$offers .= showItemBox($itemdata,0,$extra);
 }
 echo $offers;
 

@@ -1,6 +1,5 @@
 <?
 
-function timeFormulate($seconds) {return gmdate("H:i:s", $seconds);}
 
 $prizes[1] = 'book_floras';
 $prizes[2] = 'boots_mirkweave';
