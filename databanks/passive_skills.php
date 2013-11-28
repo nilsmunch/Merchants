@@ -1,6 +1,6 @@
 <?
 $perkbank = array();
-$perkbank[0] = array('title'=>'Dispatcher','artfile'=>'0073_outdoor_path_512.png','desc'=>'Increase travel speed by 0.5%','depend'=>array(),'bonus'=>'travelspeed_shorten_percent','value'=>2);
+$perkbank[0] = array('title'=>'Dispatcher','artfile'=>'0073_outdoor_path_512.png','desc'=>'Increase travel speed by 1%','depend'=>array(),'bonus'=>'travelspeed_shorten_percent','value'=>1);
 
 $perkbank[] = array('title'=>'Botanist','artfile'=>'FlowerBunch_03.png','desc'=>'Increase herbalism processing speed with 5%','depend'=>array('0'),'bonus'=>'herbalism_shorten_percent','value'=>5);
 
