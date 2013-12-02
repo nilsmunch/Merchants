@@ -5,7 +5,7 @@ $achievementsbank = $lib_achievements;
 
 if ($g['lifetime']['minions_hired'] == 0) {$g['lifetime']['minions_hired'] = 1;}
 
-$achievementsbank['10herbs'] = array('name'=>'First pickings','artfile'=>'FlowerBunch_03.png', 'listener'=>'collected_herb','listener_min'=>10,'reward'=>array('type'=>'gold','qty'=>'20'));
+$achievementsbank['10herbs'] = array('name'=>'First pickings','artfile'=>'FlowerBunch_03.png', 'listener'=>'collected_herb','category'=>'Gathering','listener_min'=>10,'reward'=>array('type'=>'gold','qty'=>'20'));
 
 
 $achievementsbank['15herbs'] = array('name'=>'Baby steps','artfile'=>'candle_512.png','listener'=>'collected_herb','listener_min'=>15,'reward'=>array('type'=>'tool_loom','qty'=>'1'));
@@ -28,7 +28,7 @@ $achievementsbank['cheese_5'] = array('name'=>'Some crackers would do nicely','a
 $achievementsbank['foodxp_500'] = array('name'=>'Hearty eater','artfile'=>'cooking_512.png','listener'=>'xpgained_consume_food','listener_min'=>500,'reward'=>array('type'=>'gold','qty'=>'50'));
 
 $achievementsbank['xmas_10tokens'] = array('name'=>'Naughty or Nice','artfile'=>'RecruitmentOrder.png',
-    'formulation' => 'Collect XX of the random Yuletide token drops.' ,'listener'=>'gifted_yuletide','listener_min'=>10,'reward'=>array('type'=>'xmas_cloak','qty'=>'1'));
+    'formulation' => 'Collect XX of the random Yuletide token drops.','category'=>'Seasonal' ,'listener'=>'gifted_yuletide','listener_min'=>10,'reward'=>array('type'=>'xmas_cloak','qty'=>'1'));
 
 
 

@@ -190,6 +190,7 @@ if(typeof(EventSource)!=="undefined")
 	source.addEventListener('achievements', function(e) {
 	  	var data = JSON.parse(e.data);
     		document.getElementById("achievements").innerHTML = data.html;
+    		document.getElementById("achievements_badge").innerHTML = data.badge;
 	}, false);
 
 

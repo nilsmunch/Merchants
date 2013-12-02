@@ -10,6 +10,7 @@
       'type' => 'gold',
       'qty' => '20',
     ),
+    'category' => 'Gathering',
     'listener_min' => 5,
   ),
   'ach_2_fish_drysalmon' => 
@@ -24,6 +25,7 @@
       'qty' => '50',
     ),
     'listener_min' => 50,
+    'category' => 'Gathering',
     'prerequisite' => 'ach_1_fish_drysalmon',
   ),
   'ach_3_fish_drysalmon' => 
@@ -38,6 +40,7 @@
       'qty' => '1',
     ),
     'listener_min' => 250,
+    'category' => 'Gathering',
     'prerequisite' => 'ach_2_fish_drysalmon',
   ),
   'ach_1_wood_oak' => 
@@ -51,6 +54,7 @@
       'type' => 'gold',
       'qty' => '20',
     ),
+    'category' => 'Gathering',
     'listener_min' => 5,
   ),
   'ach_2_wood_oak' => 
@@ -65,6 +69,7 @@
       'qty' => '50',
     ),
     'listener_min' => 50,
+    'category' => 'Gathering',
     'prerequisite' => 'ach_1_wood_oak',
   ),
   'ach_3_wood_oak' => 
@@ -79,6 +84,7 @@
       'qty' => '50',
     ),
     'listener_min' => 250,
+    'category' => 'Gathering',
     'prerequisite' => 'ach_2_wood_oak',
   ),
   'ach_1_apple' => 
@@ -92,6 +98,7 @@
       'type' => 'gold',
       'qty' => '20',
     ),
+    'category' => 'Gathering',
     'listener_min' => 5,
   ),
   'ach_2_apple' => 
@@ -106,6 +113,7 @@
       'qty' => '50',
     ),
     'listener_min' => 50,
+    'category' => 'Gathering',
     'prerequisite' => 'ach_1_apple',
   ),
   'ach_3_apple' => 
@@ -120,6 +128,7 @@
       'qty' => '1',
     ),
     'listener_min' => 250,
+    'category' => 'Gathering',
     'prerequisite' => 'ach_2_apple',
   ),
   'ach_1_wool' => 
@@ -133,6 +142,7 @@
       'type' => 'gold',
       'qty' => '20',
     ),
+    'category' => 'Gathering',
     'listener_min' => 5,
   ),
   'ach_2_wool' => 
@@ -147,6 +157,7 @@
       'qty' => '50',
     ),
     'listener_min' => 50,
+    'category' => 'Gathering',
     'prerequisite' => 'ach_1_wool',
   ),
   'ach_craft1_herb' => 
@@ -154,6 +165,7 @@
     'name' => 'Bushwhacker',
     'artfile' => 'herbs.png',
     'listener' => 'craftspent_herb',
+    'category' => 'Crafting',
     'formulation' => 'Spent XX Herbs on crafts',
     'reward' => 
     array (
@@ -167,6 +179,7 @@
     'name' => 'Paint me blue',
     'artfile' => 'AquamarineGem01.png',
     'listener' => 'craftspent_dye_blue',
+    'category' => 'Crafting',
     'formulation' => 'Spent XX Blue dye on crafts',
     'reward' => 
     array (
@@ -180,6 +193,7 @@
     'name' => 'Shardbreaker',
     'artfile' => 'IceBolt.png',
     'listener' => 'craftspent_citrine_polished',
+    'category' => 'Crafting',
     'formulation' => 'Spent XX Raw citrine on crafts',
     'reward' => 
     array (

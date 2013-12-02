@@ -18,5 +18,5 @@ echo $username;
 <a href="#" onClick="openMarket();" id="link_marketplace" style="display:block"><img src="/media/art/button_market.png">Marketplace</a>
 <a href="#" onClick="openAuction();" id="link_auction" style="display:block"><img src="/media/art/button_market.png">AuctionHouse</a>
 <a href="#" onClick="openQuests();" id="link_quests" style="display:block"><img src="/media/art/button_quests.png">Quests</a>
-<a href="#" onClick="showView('#achievements')" id="link_achievements" style="display:block"><img src="/media/art/button_ach.png">Achievements</a>
+<a href="#" onClick="showView('#achievements')" id="link_achievements" style="display:block"><img src="/media/art/button_ach.png"><span id="achievements_badge">Achievements</span></a>
 <a href="#" onClick="openScores();" id="link_scoreboard" style="display:block"><img src="/media/art/button_highscore.png">Scoreboard</a>

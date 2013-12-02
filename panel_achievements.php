@@ -6,6 +6,8 @@ if (!$g['achievements_unlocked']) {$g['achievements_unlocked'] = array();}
 
 $g['lifetime']['tasted_cheeses_types'] = count($g['lifetime']['tasted_cheeses']);
 
+$badge = 0;
+
 $achievementWindow['html'] = '<div style="clear:both">Achievements:</div>';
 foreach ((array)$achievementsbank as $achkey => $ach) {
 	$include = true;
@@ -41,23 +43,31 @@ foreach ((array)$achievementsbank as $achkey => $ach) {
 	if ($include) {
 	if ($ach['formulation']) {$form_action[$ach['listener']] = $ach['formulation'];}
 
-
+		if ($completer) {$badge++;}
 		$form = str_replace('XX',(int)$ach['listener_min'],$form_action[$ach['listener']]);
-		$achievementWindow['html'] .= '<div class="'.($completer ? 'collectable' : '').'" style="margin:5px;float:left;width:30%">'.achievementIcon($ach['artfile'],'float:left').'<b>'.$ach['name'].'</b> ('.(int)$result.' / '.$ach['listener_min'].')';
-		$achievementWindow['html'] .= '<br><i style="font-size:12px;">'.$form.'</i>';
+		$achBox = '<div class="'.($completer ? 'collectable' : '').' ach" style="margin:5px;float:left;width:30%">'.achievementIcon($ach['artfile'],'float:left').'<b>'.$ach['name'].'</b> ('.(int)$result.' / '.$ach['listener_min'].')';
+		$achBox .= '<br><i style="font-size:12px;">'.$form.'</i>';
 			if ($ach['reward']) {
 				$rewarditem = $itembank[$ach['reward']['type']];
-		$achievementWindow['html'] .= '<br><i style="font-size:12px;">Reward : '.(int)$ach['reward']['qty'].' '.$rewarditem['name'].'</i>'.$completer.'</div>';
+		$achBox .= '<br><i style="font-size:12px;">Reward : '.(int)$ach['reward']['qty'].' '.$rewarditem['name'].'</i>'.$completer.'</div>';
+		if (!$ach['category']) {$ach['category'] = 'Misc';}
+		$achCats[$ach['category']] .= $achBox;
 }
 }
 		
 	}
 }
+$achievementWindow['html'] = '';
+foreach ($achCats as $key => $value) {
+	$achievementWindow['html'] .= '<h2>'.$key.'</h2>'.$value;
+}
+
+$achievementWindow['badge'] = ($badge ? 'Achievements! ('.$badge.')':'Achievements');
 
 if ($rewards ) {
 	include('panel_inventory.php');
 }
 
-$achievementWindow['html'] .= '<hr style="clear:both"><a href="#" style="display:block;clear:both" onClick="if (confirm(\'Are you sure?\')) performAct(-1,\'resetall\');">RESET ALL DATA</a>';
+$achievementWindow['html'] .= '<hr style="clear:both;"><a href="#" style="display:block;clear:both" onClick="if (confirm(\'Are you sure?\')) performAct(-1,\'resetall\');">RESET ALL DATA</a>';
 
 ?>

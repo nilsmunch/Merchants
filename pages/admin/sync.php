@@ -62,6 +62,7 @@ while ($item = mysql_fetch_assoc($itemsQ)) {
 			$ach['name'] = $item['ach_craft1_title'];
 			$ach['artfile'] = $item['ach_craft1_artwork'];
 			$ach['listener'] = 'craftspent_'.$itemkey;
+			$ach['category'] = 'Crafting';
 			$ach['formulation'] = 'Spent XX '.$item['name'].' on crafts';
 			$ach['reward'] = array('type'=>'gold','qty'=>'50');
 			$ach['listener_min'] = 100;
@@ -85,6 +86,7 @@ while ($item = mysql_fetch_assoc($itemsQ)) {
 			$ach['listener'] = 'collected_'.$itemkey;
 			$ach['formulation'] = 'Collect XX '.$item['name'];
 			$ach['reward'] = array('type'=>'gold','qty'=>'20');
+			$ach['category'] = 'Gathering';
 			$ach['listener_min'] = 5;
 			$achbank['ach_1_'.$itemkey] = $ach;
 		}
@@ -98,6 +100,7 @@ while ($item = mysql_fetch_assoc($itemsQ)) {
 			$ach['formulation'] = 'Collect XX '.$item['name'];
 			$ach['reward'] = array('type'=>'gold','qty'=>'50');
 			$ach['listener_min'] = 50;
+			$ach['category'] = 'Gathering';
 			$ach['prerequisite'] = 'ach_1_'.$itemkey;
 			$achbank['ach_2_'.$itemkey] = $ach;
 		}
@@ -111,6 +114,7 @@ while ($item = mysql_fetch_assoc($itemsQ)) {
 			$ach['reward'] = array('type'=>'gold','qty'=>'50');
 			if ($item['ach_3_reward']) {$ach['reward'] = array('type'=>$item['ach_3_reward'],'qty'=>'1');}
 			$ach['listener_min'] = 250;
+			$ach['category'] = 'Gathering';
 			$ach['prerequisite'] = 'ach_2_'.$itemkey;
 			$achbank['ach_3_'.$itemkey] = $ach;
 		}

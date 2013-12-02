@@ -101,10 +101,12 @@ foreach ((array)$questlist as $qid => $quest) {
 
 	$cont = (int)$_SESSION['questcont_'.$qid.'_'.$quest['endtime']];
 echo '<div style="padding:20px;">'.nl2br($quest['flair']).'</div>';
+
+echo '<h2>Items requested :</h2>';
 	$itemdata = $itembank[$quest['askingitem']];
 	echo 'You have contributed : '.$cont.' x '.$itemdata['name_plural'];
 	echo ' <a href="#" class="questcont" onClick="openQuests(\''.$qid.'\',1);">+1</a>';
-	if ($g['inventory'][$quest['askingitem']] > 4) {
+	if ($g['inventory'][$quest['askingitem']] > 10) {
 	echo ' <a href="#" class="questcont" onClick="openQuests(\''.$qid.'\',10);">+10</a>';
 	}
 	if ($g['inventory'][$quest['askingitem']] > 100) {
@@ -114,7 +116,7 @@ echo '<div style="padding:20px;">'.nl2br($quest['flair']).'</div>';
 	if ($g['inventory'][$quest['askingitem']] > 1000) {	echo ' <a href="#" class="questcont" onClick="openQuests(\''.$qid.'\',1000);">+1.000</a>';	}
 	echo showItemBox($quest['askingitem'],1);
 
-echo '<div style="font-size:26px;clear:both">Top contributors :</div>';
+echo '<h2>Top contributors :</h2>';
 
 
 		$contib = array();
@@ -189,7 +191,7 @@ echo '</table>';
 	}
 
 
-echo '<div style="font-size:26px;clear:both">Rewards :</div>';
+echo '<h2>Quest rewards :</h2>';
 	echo showItemBox($prizes[1],1,'1st');
 	echo showItemBox($prizes[2],1,'2nd');
 	echo showItemBox($prizes[3],1,'Top 3');

@@ -101,7 +101,7 @@ if ($notif) {
 
 // market demands 
 if ($thisshop == 'demand') {
-	echo '<div style="clear:both;text-align:center">City requests :</div>';
+	echo '<h2>City requests :</h2>';
 
 $marketdemand = $_SESSION['market_demand'];
 
@@ -146,7 +146,7 @@ if ($thisshop == 'outlet') {
 
 
 
-	echo '<div style="clear:both;text-align:center">City common outlet :</div>';
+	echo '<h2>City common outlet :</h2>';
 
 foreach ((array)$outletstore as $itmkey => $itemdata) {
 	$respawn = $g['market_outlet'][$itmkey]['respawn'];
@@ -181,7 +181,7 @@ if ($thisshop == 'favor') {
 		}
 	}
 
-	echo '<div style="clear:both;text-align:center">The House of Raydor Quatermaster :</div>';
+	echo '<h2>The House of Raydor Quatermaster :</h2>';
 
 foreach ((array)$toolstore as $itm) {
 	$itemdata = $itembank[$itm];
@@ -203,7 +203,7 @@ if (in_array($thisshop, array('tool','yule'))) {
 	$storename['tool'] = 'General tools warehouse';
 	$storename['yule'] = 'Yuletide special store';
 
-	echo '<div style="clear:both;text-align:center">'.$storename[$thisshop].' :</div>';
+	echo '<h2>'.$storename[$thisshop].' :</h2>';
 
 foreach ((array)$toolstore as $itmkey => $itemdata) {
 $extra = '<a href="#" onClick="marketAction(\'buy\',\''.$itmkey.'\')">Buy ('.$itemdata['market_price'].' &curren;)</a>';
@@ -245,7 +245,7 @@ if ($notif) {
 	echo '<div style="clear:both;text-align:center">'.$notif.'</div>';
 }
 
-	echo '<div style="clear:both;text-align:center">Rayden\'s Randoms and Rares :</div>';
+	echo '<h2>Rayden\'s Randoms and Rares :</h2>';
 
 foreach ((array)$marketselection as $itm) {
 	$itemdata = $itembank[$itm];
