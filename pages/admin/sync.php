@@ -50,7 +50,7 @@ while ($item = mysql_fetch_assoc($itemsQ)) {
 		foreach (array_count_values(explode(',',$item['craft_ingredients'])) as $val => $qty) {
 			$ingarray[] = array('type'=>'itemqty','item'=>$val,'cost'=>$qty);
 		}
-
+		$act['qty'] = $item['craft_qty'];
 
 		$act['requirements'] = $ingarray;
 		$actionbank['crafting_'.$item['itemkey']] = $act;

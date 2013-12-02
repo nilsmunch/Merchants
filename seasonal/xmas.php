@@ -1,6 +1,6 @@
 <?
 
-$xmasduration = 30*60;
+$xmasduration = 3;
 
 $time = date('U');
 	$gift_open = !$g['lastgift_time'] || (($g['lastgift_time']-$time)<= -$xmasduration);

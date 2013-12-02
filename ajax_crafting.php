@@ -84,7 +84,7 @@ if ($itemdata['craft_recipekey']) {
 //if ($needs_recipe) {$taskbox = '<tr><td colspan=3 style="background-color:grey;padding:3px;">You have not read '.$itemdata['name'].' recipe';}
 
 if (!$needs_recipe) {
-$taskbox = itemIcon($itemdata).'<td valign=top style="padding:3px;background-color:black;color:white">'.$itemdata['name'].showItemBox($opt['itemgain'],1,'description').'<td>'.$inglist;
+$taskbox = itemIcon($itemdata).'<td valign=top style="padding:3px;background-color:black;color:white">'.($itemdata['craft_qty'] != 1 ? $itemdata['craft_qty'].' x ': '').$itemdata['name'].showItemBox($opt['itemgain'],1,'description').'<td>'.$inglist;
 	
 $taskbox .= '<td>';
 
@@ -94,8 +94,6 @@ foreach ((array)$assistants[$opt['gearneed']] as $ass) {
 	minionBoosts($min);
 	$timevar = minionTaskTime($opt);
 if (!$bring) {
-
-
 	$assbox = '<a href="#" style="display:block;font-weight:bold;color:white;text-decoration:none" onClick="performAct('.(int)$ass.',\''.$key.'\');showView(\'#result\');">Assign '.$min['name'].'</a>'.$timevar['labels'];
 } else {
 	$assbox = '<a href="#" style="display:block;font-weight:bold;color:red;text-decoration:none">Assign '.$min['name'].'</a>'.$timevar['labels'];

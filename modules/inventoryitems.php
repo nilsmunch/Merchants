@@ -33,7 +33,8 @@ function spendItemTokens($minion) {
 }
 
 function minionBoosts($minion) {
-	global $boosts,$itembank;
+	global $boosts,$itembank,$skillbank;
+	if (!$skillbank) {include('databanks/skills.php');}
 	$boosts = countPlayerSkills();	
 	foreach ($minion['items'] as $itm) {
 		$itemdata = $itembank[$itm];
@@ -44,14 +45,10 @@ function minionBoosts($minion) {
 		if ($itemdata['gather_boost_herb']) {
 			$boosts['herb'] += $itemdata['gather_boost_herb'];
 		}
-		if ($itemdata['gather_boost_fishing']) {
-			$boosts['fishing'] += $itemdata['gather_boost_fishing'];
-		}
-		if ($itemdata['gather_boost_lumbering']) {
-			$boosts['lumbering'] += $itemdata['gather_boost_lumbering'];
-		}
-		if ($itemdata['gather_boost_fruitpicking']) {
-			$boosts['fruitpicking'] += $itemdata['gather_boost_fruitpicking'];
+		foreach ($skillbank as $key => $value) {
+			if ($itemdata['gather_boost_'.$key]) {
+				$boosts[$key] += $itemdata['gather_boost_'.$key];
+			}
 		}
 		if ($itemdata['travelspeed_shorten_percent']) {
 			$boosts['travelspeed_shorten_percent'] += $itemdata['travelspeed_shorten_percent'];

@@ -56,7 +56,7 @@ foreach ($g['minions'] as $pit => $min) {
 	if (!$busy) {
 		$minionitems = '<a href="#" onClick="gearupGoon('.$pit.')" style="text-decoration:none;">'.$minionitems.'</a>';
 	}
-	$minionpage .= '<div style="text-align:center">'.$minionitems.'</div>';
+	$minionpage .= '<div class="minioninventory">'.$minionitems.'</div>';
 
 	
 	$minionpage .= '</div>';

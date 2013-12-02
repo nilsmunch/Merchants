@@ -21,6 +21,25 @@ text-align: center;
 clear:both
 }
 
+.minioninventory {text-align:center}
+
+.itembox span {
+	color:#d39c46;
+}
+
+.skillgrant {color:orange !important;}
+
+
+.itembox img {
+float:left; margin:0px !important;margin-right: 4px !important;
+}
+.itembox {
+position:relative;float:left;width:280px;height:100px;border:2px solid black;margin:1px;padding:1px;
+background-color: #2b2b2b;
+}
+
+.itembox * {color:white;}
+
 div.sidemenu a.active {
 background-image:url('/media/art/prch03.png');
 background-color:#f4e9c4;}

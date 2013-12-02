@@ -91,7 +91,7 @@ shopTap('random');
 shopTap('yule');
 shopTap('outlet');
 echo '</div>';
-	echo '<div style="clear:both;height:140px;">&nbsp;</div>';
+	echo '<div style="clear:both;height:120px;">&nbsp;</div>';
 
 
 

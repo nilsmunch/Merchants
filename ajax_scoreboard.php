@@ -20,7 +20,7 @@ $player[] = $scoreentry;
 
 echo '<table cellspacing=0 width=100%>';
 
-array_sort($player,'gold');
+array_sort($player,'xp_level');
 
 foreach ($player as $pl) {
 $detail = '';

@@ -51,6 +51,7 @@
     'time' => 30,
     'itemgain' => 'prety_carpet',
     'gearneed' => 'tailoring',
+    'qty' => '1',
     'requirements' => 
     array (
       0 => 
@@ -225,6 +226,7 @@
     'time' => 30,
     'itemgain' => 'salty_potion',
     'gearneed' => 'alchemy',
+    'qty' => '1',
     'requirements' => 
     array (
       0 => 
@@ -241,6 +243,7 @@
     'time' => 30,
     'itemgain' => 'dust_weak',
     'gearneed' => 'arcanism',
+    'qty' => '1',
     'requirements' => 
     array (
       0 => 
@@ -265,6 +268,7 @@
     'time' => 30,
     'itemgain' => 'waterskin_light',
     'gearneed' => 'leatherworking',
+    'qty' => '1',
     'requirements' => 
     array (
       0 => 
@@ -287,6 +291,7 @@
     'time' => 30,
     'itemgain' => 'herbpouch_masterwork',
     'gearneed' => 'tailoring',
+    'qty' => '1',
     'requirements' => 
     array (
       0 => 
@@ -317,6 +322,7 @@
     'time' => 30,
     'itemgain' => 'potion_oaktime',
     'gearneed' => 'alchemy',
+    'qty' => '1',
     'requirements' => 
     array (
       0 => 
@@ -339,6 +345,7 @@
     'time' => 30,
     'itemgain' => 'leather_armor',
     'gearneed' => 'leatherworking',
+    'qty' => '1',
     'requirements' => 
     array (
       0 => 
@@ -377,6 +384,7 @@
     'time' => 30,
     'itemgain' => 'axe_copper',
     'gearneed' => 'blacksmithing',
+    'qty' => '1',
     'requirements' => 
     array (
       0 => 
@@ -499,6 +507,7 @@
     'time' => 60,
     'itemgain' => 'food_bakedsalmon',
     'gearneed' => 'cooking',
+    'qty' => '1',
     'requirements' => 
     array (
       0 => 
@@ -521,6 +530,7 @@
     'time' => 30,
     'itemgain' => 'xmas_honeybread',
     'gearneed' => 'cooking',
+    'qty' => '1',
     'requirements' => 
     array (
       0 => 
@@ -549,6 +559,7 @@
     'time' => 30,
     'itemgain' => 'pomono_rune',
     'gearneed' => 'runecrafting',
+    'qty' => '1',
     'requirements' => 
     array (
       0 => 
@@ -571,6 +582,7 @@
     'time' => 30,
     'itemgain' => 'tool_arcanism',
     'gearneed' => '',
+    'qty' => '1',
     'requirements' => 
     array (
       0 => 
@@ -587,6 +599,7 @@
     'time' => 30,
     'itemgain' => 'gem_citrine_pol',
     'gearneed' => 'gemcutting',
+    'qty' => '1',
     'requirements' => 
     array (
       0 => 
@@ -603,6 +616,7 @@
     'time' => 30,
     'itemgain' => 'gem_citrine_shin',
     'gearneed' => 'gemcutting',
+    'qty' => '1',
     'requirements' => 
     array (
       0 => 
@@ -613,12 +627,105 @@
       ),
     ),
   ),
+  'crafting_xmas_crystalcandy' => 
+  array (
+    'title' => '',
+    'time' => 30,
+    'itemgain' => 'xmas_crystalcandy',
+    'gearneed' => 'cooking',
+    'qty' => '1',
+    'requirements' => 
+    array (
+      0 => 
+      array (
+        'type' => 'itemqty',
+        'item' => 'sugar',
+        'cost' => 3,
+      ),
+      1 => 
+      array (
+        'type' => 'itemqty',
+        'item' => 'honey',
+        'cost' => 1,
+      ),
+    ),
+  ),
+  'crafting_cake_apple' => 
+  array (
+    'title' => '',
+    'time' => 150,
+    'itemgain' => 'cake_apple',
+    'gearneed' => 'cooking',
+    'qty' => '1',
+    'requirements' => 
+    array (
+      0 => 
+      array (
+        'type' => 'itemqty',
+        'item' => 'apple',
+        'cost' => 3,
+      ),
+      1 => 
+      array (
+        'type' => 'itemqty',
+        'item' => 'flour',
+        'cost' => 1,
+      ),
+      2 => 
+      array (
+        'type' => 'itemqty',
+        'item' => 'sugar',
+        'cost' => 1,
+      ),
+    ),
+  ),
+  'crafting_scroll_swift' => 
+  array (
+    'title' => '',
+    'time' => 30,
+    'itemgain' => 'scroll_swift',
+    'gearneed' => 'scrollmaking',
+    'qty' => '1',
+    'requirements' => 
+    array (
+      0 => 
+      array (
+        'type' => 'itemqty',
+        'item' => 'parch_bleak',
+        'cost' => 1,
+      ),
+      1 => 
+      array (
+        'type' => 'itemqty',
+        'item' => 'blue_ink',
+        'cost' => 1,
+      ),
+    ),
+  ),
+  'crafting_blue_ink' => 
+  array (
+    'title' => '',
+    'time' => 60,
+    'itemgain' => 'blue_ink',
+    'gearneed' => 'alchemy',
+    'qty' => '1',
+    'requirements' => 
+    array (
+      0 => 
+      array (
+        'type' => 'itemqty',
+        'item' => 'dye_blue',
+        'cost' => 3,
+      ),
+    ),
+  ),
   'crafting_tool_fishrod' => 
   array (
     'title' => '',
     'time' => 30,
     'itemgain' => 'tool_fishrod',
     'gearneed' => 'carving',
+    'qty' => '1',
     'requirements' => 
     array (
       0 => 
@@ -634,6 +741,65 @@
         'cost' => 1,
       ),
     ),
+  ),
+  'crafting_basespice' => 
+  array (
+    'title' => '',
+    'time' => 30,
+    'itemgain' => 'basespice',
+    'gearneed' => 'cooking',
+    'qty' => '1',
+    'requirements' => 
+    array (
+      0 => 
+      array (
+        'type' => 'itemqty',
+        'item' => 'herb',
+        'cost' => 2,
+      ),
+    ),
+  ),
+  'crafting_yarn_simple' => 
+  array (
+    'title' => '',
+    'time' => 30,
+    'itemgain' => 'yarn_simple',
+    'gearneed' => 'looming',
+    'qty' => '1',
+    'requirements' => 
+    array (
+      0 => 
+      array (
+        'type' => 'itemqty',
+        'item' => 'wool',
+        'cost' => 1,
+      ),
+    ),
+  ),
+  'crafting_bow_beginner' => 
+  array (
+    'title' => '',
+    'time' => 30,
+    'itemgain' => 'bow_beginner',
+    'gearneed' => 'carving',
+    'qty' => '1',
+    'requirements' => 
+    array (
+      0 => 
+      array (
+        'type' => 'itemqty',
+        'item' => 'wood_oak',
+        'cost' => 3,
+      ),
+    ),
+  ),
+  'finding_citrine_polished' => 
+  array (
+    'title' => 'Mine for citrine gemstones',
+    'time' => '200',
+    'itemgain' => 'citrine_polished',
+    'gearneed' => 'mining',
+    'transitive' => 'Digging for citrines',
   ),
   'finding_leather_rough' => 
   array (
@@ -735,61 +901,22 @@
       ),
     ),
   ),
-  'crafting_basespice' => 
+  'crafting_parch_bleak' => 
   array (
     'title' => '',
-    'time' => 30,
-    'itemgain' => 'basespice',
-    'gearneed' => 'cooking',
+    'time' => 60,
+    'itemgain' => 'parch_bleak',
+    'gearneed' => 'leatherworking',
+    'qty' => '10',
     'requirements' => 
     array (
       0 => 
       array (
         'type' => 'itemqty',
-        'item' => 'herb',
-        'cost' => 2,
-      ),
-    ),
-  ),
-  'crafting_yarn_simple' => 
-  array (
-    'title' => '',
-    'time' => 30,
-    'itemgain' => 'yarn_simple',
-    'gearneed' => 'looming',
-    'requirements' => 
-    array (
-      0 => 
-      array (
-        'type' => 'itemqty',
-        'item' => 'wool',
+        'item' => 'leather_rough',
         'cost' => 1,
       ),
     ),
-  ),
-  'crafting_bow_beginner' => 
-  array (
-    'title' => '',
-    'time' => 30,
-    'itemgain' => 'bow_beginner',
-    'gearneed' => 'carving',
-    'requirements' => 
-    array (
-      0 => 
-      array (
-        'type' => 'itemqty',
-        'item' => 'wood_oak',
-        'cost' => 3,
-      ),
-    ),
-  ),
-  'finding_citrine_polished' => 
-  array (
-    'title' => 'Mine for citrine gemstones',
-    'time' => '200',
-    'itemgain' => 'citrine_polished',
-    'gearneed' => 'mining',
-    'transitive' => 'Digging for citrines',
   ),
   'crafting_militia_helmet' => 
   array (
@@ -797,6 +924,7 @@
     'time' => 30,
     'itemgain' => 'militia_helmet',
     'gearneed' => 'leatherworking',
+    'qty' => '1',
     'requirements' => 
     array (
       0 => 

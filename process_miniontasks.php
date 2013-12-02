@@ -38,8 +38,8 @@ foreach ($g['minions'] as $pit => $min) {
 				unset($_SESSION['achievementsReload']);
 				unset($_SESSION['mainscreenReload']);
 				unset($g['minions'][$pit]['currentAction']);
-			$_SESSION['collect'] = array();
-	} else {
+				$_SESSION['collect'] = array();
+		} else {
 		if (!$_SESSION['informed'][$min['name']]) {
 	$face = '<img src=\"/media/art/faces/face_'.strtolower($min['name']).'.png\">';
 	$run_js .= 'jQuery.noticeAdd({

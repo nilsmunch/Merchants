@@ -16,11 +16,10 @@ if ($run_js) {
 }
 
 function showItemBox($item,$qty,$extra="") {
-	global $itembank,$g;
-
+	global $itembank,$g,$skillbank;
+	if (!$skillbank) {include('databanks/skills.php');}
 
 	if ($item == nil) {
-		
 	return '<div style="float:left;width:280px;height:100px;border:2px solid grey;;margin:2px;padding:3px;">Empty slot</div>';
 	}
 	if (!$item) {return '';}
@@ -37,11 +36,20 @@ function showItemBox($item,$qty,$extra="") {
 
 
 	if (!$itemdata) {return;}
-	if ($itemdata['skillgrant'] && $itemdata['skillgrant'] != 'passive') {$bonuses .= '<div class="itembonus">Unlocks '.$itemdata['skillgrant'].' actions</div>';}
+	if ($itemdata['skillgrant'] && $itemdata['skillgrant'] != 'passive') {$bonuses .= '<div class="itembonus skillgrant">Unlocks '.$itemdata['skillgrant'].' actions</div>';}
+	
+	
+		foreach ($skillbank as $key => $value) {
+			if ($itemdata['gather_boost_'.$key]) {
+				$bonuses .= '<div class="itembonus">+ '.$itemdata['gather_boost_'.$key].'% '.$value['name'].' yeild</div>';
+			}
+			
+			if ($itemdata[$key.'_shorten_percent']) {
+				$bonuses .= '<div class="itembonus">+ '.$itemdata[$key.'_shorten_percent'].'% '.$value['name'].' speed</div>';
+			}
+		}
+	
 	if ($itemdata['gather_boost_herb']) {$bonuses .= '<div class="itembonus">+ '.$itemdata['gather_boost_herb'].'% herb gathering bonus</div>';}
-	if ($itemdata['gather_boost_fishing']) {$bonuses .= '<div class="itembonus">+ '.$itemdata['gather_boost_fishing'].'% fishing bonus</div>';}
-	if ($itemdata['gather_boost_lumbering']) {$bonuses .= '<div class="itembonus">+ '.$itemdata['gather_boost_lumbering'].'% woodcutting bonus</div>';}
-	if ($itemdata['gather_boost_fruitpicking']) {$bonuses .= '<div class="itembonus">+ '.$itemdata['gather_boost_fruitpicking'].'% fruitpicking bonus</div>';}
 	if ($itemdata['courage']) {$bonuses .= '<div class="itembonus">+ '.$itemdata['courage'].' courage</div>';}
 	if ($itemdata['travelspeed_shorten_percent']) {$bonuses .= '<div class="itembonus">+ '.$itemdata['travelspeed_shorten_percent'].'% travel speed</div>';}
 	if ($itemdata['processing_shorten_percent']) {$bonuses .= '<div class="itembonus">+ '.$itemdata['processing_shorten_percent'].'% production speed</div>';}
@@ -61,7 +69,7 @@ function showItemBox($item,$qty,$extra="") {
 	if ($itemdata['flairtext']) {$detail = '<div style="font-style:italic;padding:3px;font-size:12px;color:#a0574a;font-family:Times">'.$itemdata['flairtext'].'</div>';}
 
 
-	return '<div style="position:relative;float:left;width:280px;height:100px;border:2px solid #7b6003;margin:2px;padding:3px;">'.itemIcon($itemdata,'float:left').($qty > 1 ? $qty : '').' <b>'.$itemdata['name'].'</b>'.$extra.'<br>'.$bonuses.$detail.'</div>';
+	return '<div class="itembox">'.itemIcon($itemdata).'<span>'.($qty > 1 ? $qty : '').'</span> <b>'.$itemdata['name'].'</b>'.$extra.'<br>'.$bonuses.$detail.'</div>';
 }
 
 function achievementIcon($icon,$extra = "",$size=64) {

@@ -188,6 +188,20 @@
     ),
     'listener_min' => 100,
   ),
+  'ach_craft1_sugar' => 
+  array (
+    'name' => 'Sugar daddy',
+    'artfile' => 'candy_rasp.jpg',
+    'listener' => 'craftspent_sugar',
+    'category' => 'Crafting',
+    'formulation' => 'Spent XX Sugar on crafts',
+    'reward' => 
+    array (
+      'type' => 'gold',
+      'qty' => '50',
+    ),
+    'listener_min' => 100,
+  ),
   'ach_craft1_citrine_polished' => 
   array (
     'name' => 'Shardbreaker',
