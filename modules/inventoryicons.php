@@ -36,7 +36,7 @@ function showItemBox($item,$qty,$extra="") {
 
 
 	if (!$itemdata) {return;}
-	if ($itemdata['skillgrant'] && $itemdata['skillgrant'] != 'passive') {$bonuses .= '<div class="itembonus skillgrant">Unlocks '.$itemdata['skillgrant'].' actions</div>';}
+	if ($itemdata['skillgrant'] && $itemdata['skillgrant'] != 'passive') {$bonuses .= '<div class="itembonus">Unlocks <span class="skillgrant">'.$skillbank[$itemdata['skillgrant']]['name'].'</span> actions</div>';}
 	
 	
 		foreach ($skillbank as $key => $value) {

@@ -30,7 +30,7 @@ fwrite($fh, $final);
 fclose($fh);
 }
 
-$itemsQ = mysql_query('SELECT * FROM  `merch_items` order by market_price,market_price_yulecoin,market_price_favorcoin asc');
+$itemsQ = mysql_query('SELECT * FROM  `merch_items` order by market_price,market_price_yulecoin,market_price_favorcoin,itemlevel asc');
 
 while ($item = mysql_fetch_assoc($itemsQ)) {
 	$itemdata = $item;
@@ -47,7 +47,7 @@ while ($item = mysql_fetch_assoc($itemsQ)) {
 		$act['time'] = 30*$item['itemlevel'];
 		$act['itemgain'] = $item['itemkey'];
 		$act['gearneed'] = $item['craft_profession'];
-		foreach (array_count_values(explode(',',$item['craft_ingredients'])) as $val => $qty) {
+		foreach (array_count_values(explode(',',str_replace(' ','',$item['craft_ingredients']))) as $val => $qty) {
 			$ingarray[] = array('type'=>'itemqty','item'=>$val,'cost'=>$qty);
 		}
 		$act['qty'] = $item['craft_qty'];

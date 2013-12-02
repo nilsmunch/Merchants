@@ -262,29 +262,6 @@
     'gearneed' => 'masonry',
     'transitive' => 'Mining sandstone',
   ),
-  'crafting_waterskin_light' => 
-  array (
-    'title' => '',
-    'time' => 30,
-    'itemgain' => 'waterskin_light',
-    'gearneed' => 'leatherworking',
-    'qty' => '1',
-    'requirements' => 
-    array (
-      0 => 
-      array (
-        'type' => 'itemqty',
-        'item' => 'leather_rough',
-        'cost' => 3,
-      ),
-      1 => 
-      array (
-        'type' => 'itemqty',
-        'item' => 'yarn_simple',
-        'cost' => 1,
-      ),
-    ),
-  ),
   'crafting_herbpouch_masterwork' => 
   array (
     'title' => '',
@@ -339,29 +316,6 @@
       ),
     ),
   ),
-  'crafting_leather_armor' => 
-  array (
-    'title' => '',
-    'time' => 30,
-    'itemgain' => 'leather_armor',
-    'gearneed' => 'leatherworking',
-    'qty' => '1',
-    'requirements' => 
-    array (
-      0 => 
-      array (
-        'type' => 'itemqty',
-        'item' => 'leather_rough',
-        'cost' => 6,
-      ),
-      1 => 
-      array (
-        'type' => 'itemqty',
-        'item' => 'yarn_simple',
-        'cost' => 1,
-      ),
-    ),
-  ),
   'finding_iron' => 
   array (
     'title' => 'Mine for iron',
@@ -377,29 +331,6 @@
     'itemgain' => 'copper',
     'gearneed' => 'mining',
     'transitive' => 'Mining copper',
-  ),
-  'crafting_axe_copper' => 
-  array (
-    'title' => '',
-    'time' => 30,
-    'itemgain' => 'axe_copper',
-    'gearneed' => 'blacksmithing',
-    'qty' => '1',
-    'requirements' => 
-    array (
-      0 => 
-      array (
-        'type' => 'itemqty',
-        'item' => 'wood_oak',
-        'cost' => 3,
-      ),
-      1 => 
-      array (
-        'type' => 'itemqty',
-        'item' => 'copper',
-        'cost' => 4,
-      ),
-    ),
   ),
   'finding_herb' => 
   array (
@@ -501,29 +432,6 @@
       ),
     ),
   ),
-  'crafting_food_bakedsalmon' => 
-  array (
-    'title' => '',
-    'time' => 60,
-    'itemgain' => 'food_bakedsalmon',
-    'gearneed' => 'cooking',
-    'qty' => '1',
-    'requirements' => 
-    array (
-      0 => 
-      array (
-        'type' => 'itemqty',
-        'item' => 'fish_drysalmon',
-        'cost' => 1,
-      ),
-      1 => 
-      array (
-        'type' => 'itemqty',
-        'item' => 'herb',
-        'cost' => 2,
-      ),
-    ),
-  ),
   'crafting_xmas_honeybread' => 
   array (
     'title' => '',
@@ -558,7 +466,7 @@
     'title' => '',
     'time' => 30,
     'itemgain' => 'pomono_rune',
-    'gearneed' => 'runecrafting',
+    'gearneed' => 'runecarver',
     'qty' => '1',
     'requirements' => 
     array (
@@ -572,23 +480,6 @@
       array (
         'type' => 'itemqty',
         'item' => 'dust_weak',
-        'cost' => 1,
-      ),
-    ),
-  ),
-  'crafting_tool_arcanism' => 
-  array (
-    'title' => '',
-    'time' => 30,
-    'itemgain' => 'tool_arcanism',
-    'gearneed' => '',
-    'qty' => '1',
-    'requirements' => 
-    array (
-      0 => 
-      array (
-        'type' => 'itemqty',
-        'item' => 'citrine_polished',
         'cost' => 1,
       ),
     ),
@@ -650,6 +541,155 @@
       ),
     ),
   ),
+  'crafting_scroll_swift' => 
+  array (
+    'title' => '',
+    'time' => 30,
+    'itemgain' => 'scroll_swift',
+    'gearneed' => 'scrollmaking',
+    'qty' => '1',
+    'requirements' => 
+    array (
+      0 => 
+      array (
+        'type' => 'itemqty',
+        'item' => 'parch_bleak',
+        'cost' => 1,
+      ),
+      1 => 
+      array (
+        'type' => 'itemqty',
+        'item' => 'blue_ink',
+        'cost' => 1,
+      ),
+    ),
+  ),
+  'crafting_coppernails' => 
+  array (
+    'title' => '',
+    'time' => 30,
+    'itemgain' => 'coppernails',
+    'gearneed' => 'blacksmithing',
+    'qty' => '10',
+    'requirements' => 
+    array (
+      0 => 
+      array (
+        'type' => 'itemqty',
+        'item' => 'copper',
+        'cost' => 1,
+      ),
+    ),
+  ),
+  'crafting_waterskin_light' => 
+  array (
+    'title' => '',
+    'time' => 60,
+    'itemgain' => 'waterskin_light',
+    'gearneed' => 'leatherworking',
+    'qty' => '1',
+    'requirements' => 
+    array (
+      0 => 
+      array (
+        'type' => 'itemqty',
+        'item' => 'leather_rough',
+        'cost' => 3,
+      ),
+      1 => 
+      array (
+        'type' => 'itemqty',
+        'item' => 'yarn_simple',
+        'cost' => 1,
+      ),
+    ),
+  ),
+  'crafting_food_bakedsalmon' => 
+  array (
+    'title' => '',
+    'time' => 60,
+    'itemgain' => 'food_bakedsalmon',
+    'gearneed' => 'cooking',
+    'qty' => '1',
+    'requirements' => 
+    array (
+      0 => 
+      array (
+        'type' => 'itemqty',
+        'item' => 'fish_drysalmon',
+        'cost' => 1,
+      ),
+      1 => 
+      array (
+        'type' => 'itemqty',
+        'item' => 'herb',
+        'cost' => 2,
+      ),
+    ),
+  ),
+  'crafting_blue_ink' => 
+  array (
+    'title' => '',
+    'time' => 60,
+    'itemgain' => 'blue_ink',
+    'gearneed' => 'alchemy',
+    'qty' => '1',
+    'requirements' => 
+    array (
+      0 => 
+      array (
+        'type' => 'itemqty',
+        'item' => 'dye_blue',
+        'cost' => 3,
+      ),
+    ),
+  ),
+  'crafting_leather_armor' => 
+  array (
+    'title' => '',
+    'time' => 90,
+    'itemgain' => 'leather_armor',
+    'gearneed' => 'leatherworking',
+    'qty' => '1',
+    'requirements' => 
+    array (
+      0 => 
+      array (
+        'type' => 'itemqty',
+        'item' => 'leather_rough',
+        'cost' => 6,
+      ),
+      1 => 
+      array (
+        'type' => 'itemqty',
+        'item' => 'yarn_simple',
+        'cost' => 1,
+      ),
+    ),
+  ),
+  'crafting_axe_copper' => 
+  array (
+    'title' => '',
+    'time' => 120,
+    'itemgain' => 'axe_copper',
+    'gearneed' => 'blacksmithing',
+    'qty' => '1',
+    'requirements' => 
+    array (
+      0 => 
+      array (
+        'type' => 'itemqty',
+        'item' => 'wood_oak',
+        'cost' => 3,
+      ),
+      1 => 
+      array (
+        'type' => 'itemqty',
+        'item' => 'copper',
+        'cost' => 4,
+      ),
+    ),
+  ),
   'crafting_cake_apple' => 
   array (
     'title' => '',
@@ -679,43 +719,20 @@
       ),
     ),
   ),
-  'crafting_scroll_swift' => 
+  'crafting_tool_arcanism' => 
   array (
     'title' => '',
-    'time' => 30,
-    'itemgain' => 'scroll_swift',
-    'gearneed' => 'scrollmaking',
+    'time' => 300,
+    'itemgain' => 'tool_arcanism',
+    'gearneed' => 'gemcutting',
     'qty' => '1',
     'requirements' => 
     array (
       0 => 
       array (
         'type' => 'itemqty',
-        'item' => 'parch_bleak',
+        'item' => 'gem_citrine_shin',
         'cost' => 1,
-      ),
-      1 => 
-      array (
-        'type' => 'itemqty',
-        'item' => 'blue_ink',
-        'cost' => 1,
-      ),
-    ),
-  ),
-  'crafting_blue_ink' => 
-  array (
-    'title' => '',
-    'time' => 60,
-    'itemgain' => 'blue_ink',
-    'gearneed' => 'alchemy',
-    'qty' => '1',
-    'requirements' => 
-    array (
-      0 => 
-      array (
-        'type' => 'itemqty',
-        'item' => 'dye_blue',
-        'cost' => 3,
       ),
     ),
   ),
@@ -756,6 +773,23 @@
         'type' => 'itemqty',
         'item' => 'herb',
         'cost' => 2,
+      ),
+    ),
+  ),
+  'crafting_cider_apple' => 
+  array (
+    'title' => '',
+    'time' => 120,
+    'itemgain' => 'cider_apple',
+    'gearneed' => 'brewery',
+    'qty' => '1',
+    'requirements' => 
+    array (
+      0 => 
+      array (
+        'type' => 'itemqty',
+        'item' => 'apple',
+        'cost' => 6,
       ),
     ),
   ),
@@ -904,7 +938,7 @@
   'crafting_parch_bleak' => 
   array (
     'title' => '',
-    'time' => 60,
+    'time' => 30,
     'itemgain' => 'parch_bleak',
     'gearneed' => 'leatherworking',
     'qty' => '10',
@@ -915,6 +949,29 @@
         'type' => 'itemqty',
         'item' => 'leather_rough',
         'cost' => 1,
+      ),
+    ),
+  ),
+  'crafting_loom_antasi' => 
+  array (
+    'title' => '',
+    'time' => 180,
+    'itemgain' => 'loom_antasi',
+    'gearneed' => 'engineering',
+    'qty' => '1',
+    'requirements' => 
+    array (
+      0 => 
+      array (
+        'type' => 'itemqty',
+        'item' => 'wood_oak',
+        'cost' => 7,
+      ),
+      1 => 
+      array (
+        'type' => 'itemqty',
+        'item' => 'coppernails',
+        'cost' => 2,
       ),
     ),
   ),

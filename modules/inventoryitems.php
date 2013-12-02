@@ -3,19 +3,23 @@ include_once('skills.php');
 include('gatheringskills.php');
 
 function flushMinionItems($goon) {
-	global $g;
+	global $g,$itembank;
 	foreach ($g['minions'][$goon]['items'] as $slot => $itm) {
 		if ($itm == '') {unset($g['minions'][$goon]['items'][$slot]);}
 		if (strstr($itm,':')) {
 			$itmbits = explode(':',$itm);
-			if ((int)$itmbits[1] <= 0) {	unset($g['minions'][$goon]['items'][$slot]);}
+			if ((int)$itmbits[1] <= 0) {
+				$itemdata = $itembank[$itmbits[0]];
+				unset($g['minions'][$goon]['items'][$slot]);
+				$g['lifetime']['broken_'.$itemdata['itemclass']] += 1;
+			}
 		}
 	}
 	$g['minions'][$goon]['items'] = array_values($g['minions'][$goon]['items']);
 }
 
 function spendItemTokens($minion) {
-	global $boosts,$itembank;
+	global $boosts,$itembank,$g;
 	$boosts = array();	
 	foreach ($minion['items'] as $itemindex => $itm) {
 		$itemdata = $itembank[$itm];
@@ -26,6 +30,7 @@ function spendItemTokens($minion) {
 			$minion['items'][$itemindex] = $itm.':'.((int)$itmbits[1] - 1);
 			if (((int)$itmbits[1] -1) <= 0) {
 				unset($minion['items'][$itemindex]);
+				$g['lifetime']['broken_'.$itemdata['itemclass']] += 1;
 			} 
 		}
 	}
@@ -90,7 +95,7 @@ function removeWornItem($item,$goon) {
 	foreach ($g['minions'][$goon]['items'] as $index => $w_item) {
 		if ($item == $w_item) {
 			unset($g['minions'][$goon]['items'][$index]);
-break;
+			break;
 		}
 	}
 	$g['minions'][$goon]['items'] = array_values($g['minions'][$goon]['items']);
@@ -120,7 +125,10 @@ function removeFromInventory($item) {
 	}
 
 	$g['inventory'][$item] -= 1;
-	if ($g['inventory'][$item] <= 0) {unset($g['inventory'][$item]);}
+	if ($g['inventory'][$item] <= 0) {
+		unset($g['inventory'][$item]);
+		$g['lifetime']['broken_'.$itemdata['itemclass']] += 1;
+	}
 	$g['inventory'] = ($g['inventory']);
 }
 

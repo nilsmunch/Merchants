@@ -27,6 +27,10 @@ $achievementsbank['cheese_5'] = array('name'=>'Some crackers would do nicely','a
 
 $achievementsbank['foodxp_500'] = array('name'=>'Hearty eater','artfile'=>'cooking_512.png','listener'=>'xpgained_consume_food','listener_min'=>500,'reward'=>array('type'=>'gold','qty'=>'50'));
 
+
+
+$achievementsbank['drink_beverages'] = array('name'=>'Host with the most','formulation' => 'Make your servants drink XX beverages.' ,'artfile'=>'Horn_01.png','listener'=>'broken_beverage','listener_min'=>100,'reward'=>array('type'=>'gold','qty'=>'50'));
+
 $achievementsbank['xmas_10tokens'] = array('name'=>'Naughty or Nice','artfile'=>'RecruitmentOrder.png',
     'formulation' => 'Collect XX of the random Yuletide token drops.','category'=>'Seasonal' ,'listener'=>'gifted_yuletide','listener_min'=>10,'reward'=>array('type'=>'xmas_cloak','qty'=>'1'));
 

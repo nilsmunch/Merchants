@@ -64,7 +64,7 @@ foreach ($achCats as $key => $value) {
 
 $achievementWindow['badge'] = ($badge ? 'Achievements! ('.$badge.')':'Achievements');
 
-if ($rewards ) {
+if ($rewards) {
 	include('panel_inventory.php');
 }
 
