@@ -44,6 +44,9 @@ function refreshXP() {
 	$.ajax({ url: "ajax_xp.php"}).done(function( msg ) {
     		document.getElementById("xp").innerHTML = msg;
 	});
+	$.ajax({ url: "ajax_xp_level.php"}).done(function( msg ) {
+    		document.getElementById("level").innerHTML = msg;
+	});
 }
 
 function openSkills(action,target) {
@@ -55,8 +58,20 @@ function openSkills(action,target) {
 
 function openCrafting(action,target) {
 	$.ajax({ url: "ajax_crafting.php?action="+action+"&target="+target}).done(function( msg ) {
-	$("div#crafting").show();
+		$("div#crafting").show();
     		document.getElementById("crafting").innerHTML = msg;
+	});
+}
+
+function openAuction() {
+    	document.getElementById("marketplace").innerHTML = "Loading market...";
+	showView('#auction');
+	auctionhouseAction();
+}
+
+function auctionhouseAction(action,target) {
+	$.ajax({ url: "ajax_auctionhouse.php?action="+action+"&target="+target}).done(function( msg ) {
+    		document.getElementById("auction").innerHTML = msg;
 	});
 }
 
@@ -230,6 +245,7 @@ echo '<a href="http://www.facebook.com/merchantsrpg" target="_BLANK" style="disp
 <div id="scoreboard" class="maingameTabs" style="display:none"></div>
 <div id="quests" class="maingameTabs" style="display:none"></div>
 <div id="crafting" class="maingameTabs" style="display:none"></div>
+<div id="auction" class="maingameTabs" style="display:none"></div>
 <div id="skills" class="maingameTabs" style="display:none"></div>
 
 

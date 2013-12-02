@@ -247,22 +247,6 @@
       array (
         'type' => 'itemqty',
         'item' => 'citrine_polished',
-        'cost' => 3,
-      ),
-    ),
-  ),
-  'crafting_yarn_simple' => 
-  array (
-    'title' => '',
-    'time' => 30,
-    'itemgain' => 'yarn_simple',
-    'gearneed' => 'looming',
-    'requirements' => 
-    array (
-      0 => 
-      array (
-        'type' => 'itemqty',
-        'item' => 'wool',
         'cost' => 1,
       ),
     ),
@@ -529,17 +513,103 @@
         'item' => 'herb',
         'cost' => 2,
       ),
+    ),
+  ),
+  'crafting_xmas_honeybread' => 
+  array (
+    'title' => '',
+    'time' => 30,
+    'itemgain' => 'xmas_honeybread',
+    'gearneed' => 'cooking',
+    'requirements' => 
+    array (
+      0 => 
+      array (
+        'type' => 'itemqty',
+        'item' => 'honey',
+        'cost' => 1,
+      ),
+      1 => 
+      array (
+        'type' => 'itemqty',
+        'item' => 'flour',
+        'cost' => 1,
+      ),
       2 => 
       array (
         'type' => 'itemqty',
         'item' => 'basespice',
         'cost' => 1,
       ),
-      3 => 
+    ),
+  ),
+  'crafting_pomono_rune' => 
+  array (
+    'title' => '',
+    'time' => 30,
+    'itemgain' => 'pomono_rune',
+    'gearneed' => 'runecrafting',
+    'requirements' => 
+    array (
+      0 => 
       array (
         'type' => 'itemqty',
-        'item' => 'honey',
+        'item' => 'stone_sandstone',
         'cost' => 1,
+      ),
+      1 => 
+      array (
+        'type' => 'itemqty',
+        'item' => 'dust_weak',
+        'cost' => 1,
+      ),
+    ),
+  ),
+  'crafting_tool_arcanism' => 
+  array (
+    'title' => '',
+    'time' => 30,
+    'itemgain' => 'tool_arcanism',
+    'gearneed' => '',
+    'requirements' => 
+    array (
+      0 => 
+      array (
+        'type' => 'itemqty',
+        'item' => 'citrine_polished',
+        'cost' => 1,
+      ),
+    ),
+  ),
+  'crafting_gem_citrine_pol' => 
+  array (
+    'title' => '',
+    'time' => 30,
+    'itemgain' => 'gem_citrine_pol',
+    'gearneed' => 'gemcutting',
+    'requirements' => 
+    array (
+      0 => 
+      array (
+        'type' => 'itemqty',
+        'item' => 'citrine_polished',
+        'cost' => 2,
+      ),
+    ),
+  ),
+  'crafting_gem_citrine_shin' => 
+  array (
+    'title' => '',
+    'time' => 30,
+    'itemgain' => 'gem_citrine_shin',
+    'gearneed' => 'gemcutting',
+    'requirements' => 
+    array (
+      0 => 
+      array (
+        'type' => 'itemqty',
+        'item' => 'gem_citrine_pol',
+        'cost' => 3,
       ),
     ),
   ),
@@ -681,6 +751,22 @@
       ),
     ),
   ),
+  'crafting_yarn_simple' => 
+  array (
+    'title' => '',
+    'time' => 30,
+    'itemgain' => 'yarn_simple',
+    'gearneed' => 'looming',
+    'requirements' => 
+    array (
+      0 => 
+      array (
+        'type' => 'itemqty',
+        'item' => 'wool',
+        'cost' => 1,
+      ),
+    ),
+  ),
   'crafting_bow_beginner' => 
   array (
     'title' => '',
@@ -696,6 +782,14 @@
         'cost' => 3,
       ),
     ),
+  ),
+  'finding_citrine_polished' => 
+  array (
+    'title' => 'Mine for citrine gemstones',
+    'time' => '200',
+    'itemgain' => 'citrine_polished',
+    'gearneed' => 'mining',
+    'transitive' => 'Digging for citrines',
   ),
   'crafting_militia_helmet' => 
   array (

@@ -16,7 +16,7 @@ if ($run_js) {
 }
 
 function showItemBox($item,$qty,$extra="") {
-	global $itembank;
+	global $itembank,$g;
 
 
 	if ($item == nil) {
@@ -41,6 +41,7 @@ function showItemBox($item,$qty,$extra="") {
 	if ($itemdata['gather_boost_herb']) {$bonuses .= '<div class="itembonus">+ '.$itemdata['gather_boost_herb'].'% herb gathering bonus</div>';}
 	if ($itemdata['gather_boost_fishing']) {$bonuses .= '<div class="itembonus">+ '.$itemdata['gather_boost_fishing'].'% fishing bonus</div>';}
 	if ($itemdata['gather_boost_lumbering']) {$bonuses .= '<div class="itembonus">+ '.$itemdata['gather_boost_lumbering'].'% woodcutting bonus</div>';}
+	if ($itemdata['gather_boost_fruitpicking']) {$bonuses .= '<div class="itembonus">+ '.$itemdata['gather_boost_fruitpicking'].'% fruitpicking bonus</div>';}
 	if ($itemdata['courage']) {$bonuses .= '<div class="itembonus">+ '.$itemdata['courage'].' courage</div>';}
 	if ($itemdata['travelspeed_shorten_percent']) {$bonuses .= '<div class="itembonus">+ '.$itemdata['travelspeed_shorten_percent'].'% travel speed</div>';}
 	if ($itemdata['processing_shorten_percent']) {$bonuses .= '<div class="itembonus">+ '.$itemdata['processing_shorten_percent'].'% production speed</div>';}
@@ -48,7 +49,7 @@ function showItemBox($item,$qty,$extra="") {
 	if ($itemdata['xp_points_gain']) {$bonuses .= '<div class="itembonus">Gain '.$itemdata['xp_points_gain'].' XP on consumption</div>';
 	if (!$extra) {$extra = '<a href="#" onClick="itemConsume(\''.$item.'\')">Consume</a>';}
 	}
-
+	if (!$extra && !$g['lifetime']['recipes_read'][$item] && $itemdata['itemclass'] == 'recipe') {$extra = '<a href="#" onClick="itemConsume(\''.$item.'\')">Consume</a>';}
 
 	if ($itemdata['itembreak_tokens']) {$bonuses .= '<div class="itembonus">'.$itemdata['itembreak_tokens'].' uses left</div>';}
 	

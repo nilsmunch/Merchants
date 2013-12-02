@@ -26,10 +26,10 @@ foreach ($g['minions'] as $pit => $min) {
 			$timeleft = '<span><table><tr><td width=50%>'.itemIcon($itemdata).' x '.$qty.'<td width=50%><a href="#" onClick="minionCollectGoods(\'collect_from_goon\','.$pit.')">Collect</a></table></span>';
 			$process[$pit] = $timeleft;
 			if ($_SESSION['collect']['collect_from_goon'.$pit]) {
-			xp_gain(1);
 			if ($actiondata['itemgain']) {
 				addToInventory($actiondata['itemgain'],$qty);
 				$g['lifetime']['collected_'.$actiondata['itemgain']] += $qty;
+				xp_gain($qty);
 			}
 				$g['minions'][$pit] = spendItemTokens($g['minions'][$pit]);
 				unset($_SESSION['informed'][$min['name']]);

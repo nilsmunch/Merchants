@@ -40,6 +40,88 @@
     'listener_min' => 250,
     'prerequisite' => 'ach_2_fish_drysalmon',
   ),
+  'ach_1_wood_oak' => 
+  array (
+    'name' => 'Barking glad',
+    'artfile' => 'skill_nature_barkskin.jpg',
+    'listener' => 'collected_wood_oak',
+    'formulation' => 'Collect XX Oak wood',
+    'reward' => 
+    array (
+      'type' => 'gold',
+      'qty' => '20',
+    ),
+    'listener_min' => 5,
+  ),
+  'ach_2_wood_oak' => 
+  array (
+    'name' => 'All kids loves log',
+    'artfile' => 'wood_felchwood.jpg',
+    'listener' => 'collected_wood_oak',
+    'formulation' => 'Collect XX Oak wood',
+    'reward' => 
+    array (
+      'type' => 'gold',
+      'qty' => '50',
+    ),
+    'listener_min' => 50,
+    'prerequisite' => 'ach_1_wood_oak',
+  ),
+  'ach_3_wood_oak' => 
+  array (
+    'name' => 'Keep up trunking',
+    'artfile' => 'wood_pine.jpg',
+    'listener' => 'collected_wood_oak',
+    'formulation' => 'Collect XX Oak wood',
+    'reward' => 
+    array (
+      'type' => 'gold',
+      'qty' => '50',
+    ),
+    'listener_min' => 250,
+    'prerequisite' => 'ach_2_wood_oak',
+  ),
+  'ach_1_apple' => 
+  array (
+    'name' => 'Apples and pears',
+    'artfile' => 'basket_fruits.png',
+    'listener' => 'collected_apple',
+    'formulation' => 'Collect XX Juicy apple',
+    'reward' => 
+    array (
+      'type' => 'gold',
+      'qty' => '20',
+    ),
+    'listener_min' => 5,
+  ),
+  'ach_2_apple' => 
+  array (
+    'name' => 'Fruity fortunes',
+    'artfile' => 'fruit_felronanpumpkin.jpg',
+    'listener' => 'collected_apple',
+    'formulation' => 'Collect XX Juicy apple',
+    'reward' => 
+    array (
+      'type' => 'gold',
+      'qty' => '50',
+    ),
+    'listener_min' => 50,
+    'prerequisite' => 'ach_1_apple',
+  ),
+  'ach_3_apple' => 
+  array (
+    'name' => 'Gardens of Idunn',
+    'artfile' => 'LifeFruit.png',
+    'listener' => 'collected_apple',
+    'formulation' => 'Collect XX Juicy apple',
+    'reward' => 
+    array (
+      'type' => 'fruitcap',
+      'qty' => '1',
+    ),
+    'listener_min' => 250,
+    'prerequisite' => 'ach_2_apple',
+  ),
   'ach_1_wool' => 
   array (
     'name' => 'Muttonchops',
@@ -66,5 +148,44 @@
     ),
     'listener_min' => 50,
     'prerequisite' => 'ach_1_wool',
+  ),
+  'ach_craft1_herb' => 
+  array (
+    'name' => 'Bushwhacker',
+    'artfile' => 'herbs.png',
+    'listener' => 'craftspent_herb',
+    'formulation' => 'Spent XX Herbs on crafts',
+    'reward' => 
+    array (
+      'type' => 'gold',
+      'qty' => '50',
+    ),
+    'listener_min' => 100,
+  ),
+  'ach_craft1_dye_blue' => 
+  array (
+    'name' => 'Paint me blue',
+    'artfile' => 'AquamarineGem01.png',
+    'listener' => 'craftspent_dye_blue',
+    'formulation' => 'Spent XX Blue dye on crafts',
+    'reward' => 
+    array (
+      'type' => 'gold',
+      'qty' => '50',
+    ),
+    'listener_min' => 100,
+  ),
+  'ach_craft1_citrine_polished' => 
+  array (
+    'name' => 'Shardbreaker',
+    'artfile' => 'IceBolt.png',
+    'listener' => 'craftspent_citrine_polished',
+    'formulation' => 'Spent XX Raw citrine on crafts',
+    'reward' => 
+    array (
+      'type' => 'gold',
+      'qty' => '50',
+    ),
+    'listener_min' => 100,
   ),
 ); ?>

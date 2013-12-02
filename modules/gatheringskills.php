@@ -13,7 +13,7 @@ function gatherOutcome($qty,$item,$skill,$formulate = false) {
 	if ($formulate) {
 		return $qty.' <font style="color:cyan">(+ '.$boostqty.')</font>';
 	}
-	return $qty+$boostqty;
+	return (int)$qty+$boostqty;
 }
 
 //gather_boost_herb

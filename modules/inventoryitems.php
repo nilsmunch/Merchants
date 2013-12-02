@@ -50,6 +50,9 @@ function minionBoosts($minion) {
 		if ($itemdata['gather_boost_lumbering']) {
 			$boosts['lumbering'] += $itemdata['gather_boost_lumbering'];
 		}
+		if ($itemdata['gather_boost_fruitpicking']) {
+			$boosts['fruitpicking'] += $itemdata['gather_boost_fruitpicking'];
+		}
 		if ($itemdata['travelspeed_shorten_percent']) {
 			$boosts['travelspeed_shorten_percent'] += $itemdata['travelspeed_shorten_percent'];
 		}
@@ -57,6 +60,8 @@ function minionBoosts($minion) {
 		if ($itemdata['courage']) {
 			$boosts['courage'] += $itemdata['courage'];
 		}
+		
+		$boosts['herbalism'] = $boosts['herb'];
 	}
 }
 

@@ -76,10 +76,10 @@ foreach ($actionbank as $key => $opt) {
 	$itemdata = $itembank[$opt['itemgain']];
 	if (!$itemdata['name_plural']) {$itemdata['name_plural'] = $itemdata['name'].'s';}
 	if ($opt['qty'] == 1) {$itemdata['name_plural'] = $itemdata['name'];}
-
+	$opt['xp'] = gatherOutcome($opt['qty'],$opt['itemgain'],$opt['gearneed']);
 	$details = 'Gain '.gatherOutcome($opt['qty'],$opt['itemgain'],$opt['gearneed'],true).' '.$itemdata['name_plural'];
 	}
-	$details .= ' <font style="color:#45c954;background-color:rgba(0,0,0,0.9);padding:4px;position:absolute;bottom:0px;right:0px">+ 1 XP</font>';
+	$details .= ' <font style="color:#45c954;background-color:rgba(0,0,0,0.9);padding:4px;position:absolute;bottom:0px;right:0px">+ '.$opt['xp'].' XP</font>';
 
 	if ($opt['special']) {
 		$bring = false;

@@ -30,7 +30,7 @@ fwrite($fh, $final);
 fclose($fh);
 }
 
-$itemsQ = mysql_query('SELECT * FROM  `merch_items` order by market_price asc');
+$itemsQ = mysql_query('SELECT * FROM  `merch_items` order by market_price,market_price_yulecoin,market_price_favorcoin asc');
 
 while ($item = mysql_fetch_assoc($itemsQ)) {
 	$itemdata = $item;
@@ -57,6 +57,16 @@ while ($item = mysql_fetch_assoc($itemsQ)) {
 }
 
 
+		if ($item['ach_craft1_title']) {
+			$ach = array();
+			$ach['name'] = $item['ach_craft1_title'];
+			$ach['artfile'] = $item['ach_craft1_artwork'];
+			$ach['listener'] = 'craftspent_'.$itemkey;
+			$ach['formulation'] = 'Spent XX '.$item['name'].' on crafts';
+			$ach['reward'] = array('type'=>'gold','qty'=>'50');
+			$ach['listener_min'] = 100;
+			$achbank['ach_craft1_'.$itemkey] = $ach;
+		}
 
 	if ($item['entrypoint_findingtask']) {
 		$act = array();
@@ -104,6 +114,7 @@ while ($item = mysql_fetch_assoc($itemsQ)) {
 			$ach['prerequisite'] = 'ach_2_'.$itemkey;
 			$achbank['ach_3_'.$itemkey] = $ach;
 		}
+		
 
 		foreach ($variations as $key => $var) {
 

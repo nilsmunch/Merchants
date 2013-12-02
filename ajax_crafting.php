@@ -73,9 +73,22 @@ foreach ($actionbank as $key => $opt) {
 	$details = '';
 	$itemdata = $itembank[$opt['itemgain']];
 
+
+$needs_recipe = false;
+if ($itemdata['craft_recipekey']) {
+	if (!$g['lifetime']['recipes_read'][$itemdata['craft_recipekey']]) {
+		$needs_recipe = true;
+	}
+}
+
+//if ($needs_recipe) {$taskbox = '<tr><td colspan=3 style="background-color:grey;padding:3px;">You have not read '.$itemdata['name'].' recipe';}
+
+if (!$needs_recipe) {
 $taskbox = itemIcon($itemdata).'<td valign=top style="padding:3px;background-color:black;color:white">'.$itemdata['name'].showItemBox($opt['itemgain'],1,'description').'<td>'.$inglist;
 	
 $taskbox .= '<td>';
+
+
 foreach ((array)$assistants[$opt['gearneed']] as $ass) {
 	$min = $g['minions'][$ass];
 	minionBoosts($min);
@@ -91,11 +104,12 @@ if ($min['currentAction']) {
 	$assbox = '<a href="#" style="display:block;font-weight:bold;color:grey;text-decoration:none">Assign '.$min['name'].' (busy)</a>';
 }
 $taskbox .= $assbox;
+}
 
+	$taskbox = '<tr><td width=10>'.$taskbox;
 }
 
 
-	$taskbox = '<tr><td width=10>'.$taskbox;
 	$page[$opt['gearneed']] .= $taskbox;
 }
 }

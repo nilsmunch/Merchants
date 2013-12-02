@@ -3,7 +3,7 @@
 include('passive_skills.php');
 
 // FLORA
-$skillbank['fruitpicking'] = array('name'=>'Fruitpicking','category'=>'flora');
+$skillbank['fruitpicking'] = array('name'=>'Fruitpicking','category'=>'flora','travel_vs_process'=>0.9);
 $skillbank['herbalism'] = array('name'=>'Fruitpicking','category'=>'flora','travel_vs_process'=>0.8);
 $skillbank['farming'] = array('name'=>'Fruitpicking','category'=>'flora');
 
@@ -44,7 +44,7 @@ $skillbank['lumbering'] = array('name'=>'Fruitpicking','category'=>'flora');
 
 // FAUNA
 $skillbank['hunting'] = array('name'=>'Fruitpicking','category'=>'flora');
-$skillbank['fishing'] = array('name'=>'Fruitpicking','category'=>'flora');
+$skillbank['fishing'] = array('name'=>'Fruitpicking','category'=>'flora','travel_vs_process'=>0.4);
 $skillbank['animalhusbandry'] = array('name'=>'Fruitpicking','category'=>'flora');
 
 // ADVENTURE

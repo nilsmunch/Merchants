@@ -19,6 +19,11 @@ if ($itemdata['itemclass']== 'cheese') {
 $itemdata['itemclass'] = 'food';
 }
 
+if ($itemdata['itemclass']== 'recipe') {
+		$g['lifetime']['recipes_read'][$item] += 1;
+}
+
+
 
 if ($itemdata['xp_points_gain']) {xp_gain($itemdata['xp_points_gain'],'consume_'.$itemdata['itemclass']);}
 }

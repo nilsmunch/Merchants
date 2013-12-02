@@ -32,6 +32,7 @@ $perkbank[] = array('title'=>'Forgemaster','artfile'=>'SeniorEnchantWeapon.png',
 $perkbank[23] = array('title'=>'Vendor','artfile'=>'hoard_512.png','depend'=>array(),'desc'=>'+1% gold when selling items to the village');
 
 $perkbank[] = array('title'=>'Shipmaster','artfile'=>'FloatingDock.png','desc'=>'+4% ship cargo space');
+$perkbank[] = array('title'=>'Jack of all trades','artfile'=>'LandDetect.png','desc'=>'+1% processing speed');
 /*
 $perkbank[] = array('title'=>'hello','artfile'=>'','desc'=>'');
 $perkbank[] = array('title'=>'hello','artfile'=>'','desc'=>'');

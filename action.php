@@ -52,6 +52,7 @@ $time += $actiondata['time'];
 					die('cant');
 				}
 				$g['inventory'][$req['item']] -= $req['cost'];
+				$g['lifetime']['craftspent_'.$req['item']] += $req['cost'];
 			}
 		}
 	}

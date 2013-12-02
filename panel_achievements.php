@@ -43,7 +43,7 @@ foreach ((array)$achievementsbank as $achkey => $ach) {
 
 
 		$form = str_replace('XX',(int)$ach['listener_min'],$form_action[$ach['listener']]);
-		$achievementWindow['html'] .= '<div style="margin:5px;float:left;width:30%">'.achievementIcon($ach['artfile'],'float:left').'<b>'.$ach['name'].'</b> ('.(int)$result.' / '.$ach['listener_min'].')';
+		$achievementWindow['html'] .= '<div class="'.($completer ? 'collectable' : '').'" style="margin:5px;float:left;width:30%">'.achievementIcon($ach['artfile'],'float:left').'<b>'.$ach['name'].'</b> ('.(int)$result.' / '.$ach['listener_min'].')';
 		$achievementWindow['html'] .= '<br><i style="font-size:12px;">'.$form.'</i>';
 			if ($ach['reward']) {
 				$rewarditem = $itembank[$ach['reward']['type']];
