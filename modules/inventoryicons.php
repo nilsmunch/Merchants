@@ -41,7 +41,7 @@ function showItemBox($item,$qty,$extra="") {
 	
 		foreach ($skillbank as $key => $value) {
 			if ($itemdata['gather_boost_'.$key]) {
-				$bonuses .= '<div class="itembonus">+ '.$itemdata['gather_boost_'.$key].'% '.$value['name'].' yeild</div>';
+				$bonuses .= '<div class="itembonus">+ '.$itemdata['gather_boost_'.$key].'% '.$value['name'].' yield</div>';
 			}
 			
 			if ($itemdata[$key.'_shorten_percent']) {
@@ -53,6 +53,7 @@ function showItemBox($item,$qty,$extra="") {
 	if ($itemdata['courage']) {$bonuses .= '<div class="itembonus">+ '.$itemdata['courage'].' courage</div>';}
 	if ($itemdata['travelspeed_shorten_percent']) {$bonuses .= '<div class="itembonus">+ '.$itemdata['travelspeed_shorten_percent'].'% travel speed</div>';}
 	if ($itemdata['processing_shorten_percent']) {$bonuses .= '<div class="itembonus">+ '.$itemdata['processing_shorten_percent'].'% production speed</div>';}
+	if ($itemdata['rare_find']) {$bonuses .= '<div class="itembonus">+ '.$itemdata['rare_find'].'% rare item chance</div>';}
 	if ($itemdata['boost_slots_max']) {$bonuses .= '<div class="itembonus">Adds an additional tool slot (max '.$itemdata['boost_slots_max'].')</div>';}
 	if ($itemdata['xp_points_gain']) {$bonuses .= '<div class="itembonus">Gain '.$itemdata['xp_points_gain'].' XP on consumption</div>';
 	if (!$extra) {$extra = '<a href="#" onClick="itemConsume(\''.$item.'\')">Consume</a>';}

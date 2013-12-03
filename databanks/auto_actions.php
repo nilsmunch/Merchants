@@ -690,6 +690,23 @@
       ),
     ),
   ),
+  'crafting_cider_apple' => 
+  array (
+    'title' => '',
+    'time' => 120,
+    'itemgain' => 'cider_apple',
+    'gearneed' => 'brewery',
+    'qty' => '1',
+    'requirements' => 
+    array (
+      0 => 
+      array (
+        'type' => 'itemqty',
+        'item' => 'apple',
+        'cost' => 6,
+      ),
+    ),
+  ),
   'crafting_cake_apple' => 
   array (
     'title' => '',
@@ -773,23 +790,6 @@
         'type' => 'itemqty',
         'item' => 'herb',
         'cost' => 2,
-      ),
-    ),
-  ),
-  'crafting_cider_apple' => 
-  array (
-    'title' => '',
-    'time' => 120,
-    'itemgain' => 'cider_apple',
-    'gearneed' => 'brewery',
-    'qty' => '1',
-    'requirements' => 
-    array (
-      0 => 
-      array (
-        'type' => 'itemqty',
-        'item' => 'apple',
-        'cost' => 6,
       ),
     ),
   ),

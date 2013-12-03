@@ -59,7 +59,7 @@ if ($_GET['action'] == 'sell') {
 		unset($_SESSION['market_demand']);
 	} else {
 		$notif = 'You do not have the requested items!';
-}
+	}
 	$_SESSION['game_variables'] = $g;
 }
 

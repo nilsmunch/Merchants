@@ -13,6 +13,7 @@ foreach ($g['minions'] as $pit => $min) {
 		$actiondata = $actionbank[$action['name']];
 		$timeleft = '<span>'.$actiondata['transitive'].' ('.($action['donetime']-$time).'s) </span>';
 		$process[$pit] = $timeleft;
+		$taskartbank[$pit] = $actiondata['taskart'];
 		
 		
 		if (($action['donetime']-$time) > 0) {

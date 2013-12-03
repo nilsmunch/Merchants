@@ -30,11 +30,9 @@ But who will help gathering the enormous amount of supplies needed for the joust
 
 Contributors will be awarded with some of the finest equipment from the Raydor Woodkeeper Guild.','rewards' => array(1=>'axe_harvest',2=>'permit_reydorwoods',3=>'favor_coin'));
 
+$questbank['shardsofthethrone'] = array('title'=>'Shards of the Throne','faction'=>'green','askingitem'=>'gem_citrine_shin','flair'=>
+'A grand wedding is upon us, a joyous occasion for all the citizens. And a tiara is to be forged to the bride, along with a beautiful gown encrusted with the most beautiful gems in the favorite color, the yellow orange glow of the Citrine.
 
-$questbank['shardsofthethrone'] = array('title'=>'A grand wedding is upon us, a joyous occasion for all the citizens. And a tiara is to be forged to the bride, along with a beautiful gown encrusted with the most beautiful gems in the favorite color, the yellow orange glow of citrines.
-
-This is a grand oppertunities for the fine gemcrafters of Myrr to get into the good grace of House Raydor by donating gemstones to this masterpiece.
-
-Donations to this endowment will ofcouse be handled with a certain discression, but it is no mystery that House Raydor will bestow good gifts upon the one who donates the most.','rewards' => array(1=>'aptitude_potion',2=>'raydor_vestments',3=>'favor_coin'));
+This is a grand oppertunities for the fine gemcrafters of Myrr to get into the good grace of House Raydor by donating gemstones to this masterpiece.','rewards' => array(1=>'aptitude_potion',2=>'raydor_vestments',3=>'favor_coin'));
 
 ?>

@@ -1,7 +1,7 @@
 <?
 
 if (!is_array($g['inventory'])) {$g['inventory'] = array('bag_herbs'=>1,'gold'=>5);
-if (isAdmin()) {$g['inventory'] = array('bag_herbs'=>1,'gold'=>1500,'courage_amulet'=>2,'cheese_cheddar'=>10,'salty_potion'=>3,'xp_flask'=>15,'aptitude_potion'=>2,'warpstone'=>2,'xmas_recipe_honeybread'=>2);}
+if (isAdmin()) {$g['inventory'] = array('bag_herbs'=>1,'gold'=>12500,'courage_amulet'=>2,'cheese_cheddar'=>10,'steed'=>1,'salty_potion'=>3,'xp_flask'=>15,'aptitude_potion'=>2,'warpstone'=>2,'xmas_recipe_honeybread'=>2);}
 }
 
 	$inventorywindow['html'] = '<b>Inventory:</b><div style="clear:right">';

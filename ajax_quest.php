@@ -182,6 +182,7 @@ echo '</table>';
 		echo '<div>Winner was : '.$quest['winner'].'</div>';
 
 		if (($quest['endtime']-$time+$questbuffer) < 0) {
+			
 			unset($questlist[$qid]);
 			$shuffle = true;
 		}
@@ -197,20 +198,20 @@ echo '<h2>Quest rewards :</h2>';
 	echo showItemBox($prizes[3],1,'Top 3');
 }
 
-
-
-	if ($shuffle) {
-
+if ($shuffle) {
+	$newquestlist = $questlist;
 	$tombola = array_keys($questbank);
-	while (count($questlist) < 1) {
+	$questlist = $lib_quests;
+	while (count($newquestlist) < 1) {
 		shuffle($tombola);
 		$pick = $questbank[$tombola[0]];
-		if (in_array($tombola[0],(array)$questlist)) {unset($pick);}
+		if (in_array($tombola[0],(array)array_keys($questlist))) {unset($pick);}
 		if ($pick) {
 			$pick['endtime'] = $time + $questduration;
-			$questlist[$tombola[0]] = $pick;
+			$newquestlist[$tombola[0]] = $pick;
 		}
 	}
+	$questlist = $newquestlist;
 	writeCache('quests',$questlist);
 }
 

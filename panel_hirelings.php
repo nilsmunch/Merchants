@@ -10,7 +10,7 @@ $minionpage = '<div>Servants:</div>';
 
 $randomnames = array('Gendry','Podrick','Illing','Lars','Sigrid','Ulfric','Bjorn','Davik','Aslak','Yshin');
 
-$minionskills = array('skill_greenthumbs','skill_fisherman','skill_tailor','skill_precise','skill_arcanist','skill_crafty','skill_braveheart');
+$minionskills = array('skill_greenthumbs','skill_fisherman','skill_tailor','skill_precise','skill_arcanist','skill_crafty','skill_braveheart','skill_hawkeye','skill_earthsalt');
 
 $minionpage .= '<div style="width:100%">';
 
@@ -69,8 +69,7 @@ foreach ($g['minions'] as $pit => $min) {
 
 	} else {
 	if ($process[$pit]) { 
-		$actiondata = $actionbank[$action['name']];
-		$taskart = $actiondata['taskart'];
+		$taskart = $taskartbank[$pit];
 		if (!$taskart) {$taskart = 'action_idle.png';}
 		$minionpage .= '<div id="min'.$pit.'" style="text-align:center;width:350px;border-top:2px solid black;height:100px;background-image:url(\'/media/actions/'.$taskart.'\')" class="actionslab">'.$process[$pit].'</div>';
 

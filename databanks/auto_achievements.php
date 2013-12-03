@@ -174,6 +174,20 @@
     ),
     'listener_min' => 100,
   ),
+  'ach_craft1_basespice' => 
+  array (
+    'name' => 'Currylicious',
+    'artfile' => 'oiltank.png',
+    'listener' => 'craftspent_basespice',
+    'category' => 'Crafting',
+    'formulation' => 'Spent XX Bacis spices on crafts',
+    'reward' => 
+    array (
+      'type' => 'gold',
+      'qty' => '50',
+    ),
+    'listener_min' => 100,
+  ),
   'ach_craft1_dye_blue' => 
   array (
     'name' => 'Paint me blue',

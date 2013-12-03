@@ -79,6 +79,8 @@ if ($_GET['minion'] == -1) {
 
 $_SESSION['game_variables'] = $g;
 
+db_saveUserCheck(true);
+
 echo 'ok';
 
 ?>

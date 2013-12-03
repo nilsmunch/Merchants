@@ -69,8 +69,8 @@ function openAuction() {
 	auctionhouseAction();
 }
 
-function auctionhouseAction(action,target) {
-	$.ajax({ url: "ajax_auctionhouse.php?action="+action+"&target="+target}).done(function( msg ) {
+function auctionhouseAction(action,target,detail) {
+	$.ajax({ url: "ajax_auctionhouse.php?action="+action+"&target="+target+"&detail="+detail}).done(function( msg ) {
     		document.getElementById("auction").innerHTML = msg;
 	});
 }
@@ -232,6 +232,10 @@ $.ajax({
 if (isAdmin()) {
 echo '<a href="/admin" target="_BLANK" style="display:block">Admin panel</a>';
 }
+
+
+echo '<a href="http://merchantsrpg.com/bugreport/embed.php?owner=nilsmunch&repo=Merchants&token=merchaway" target="_BLANK" style="display:block">Report bug</a>';
+
 echo '<a href="http://www.facebook.com/merchantsrpg" target="_BLANK" style="display:block">Merchants on Facebook</a>';
 
 ?>

@@ -22,7 +22,7 @@ $perkbank[] = array('title'=>'Breeder','artfile'=>'eggs_512.png','desc'=>'');
 $perkbank[] = array('title'=>'Butcher','artfile'=>'0063_meat_512.png','desc'=>'');
 $perkbank[] = array('title'=>'Wildling','artfile'=>'0104_raptorRoar_512.png','desc'=>'');
 $perkbank[] = array('title'=>'Grand chef','artfile'=>'cooking_512.png','desc'=>'');
-$perkbank[17] = array('title'=>'Hoarder','artfile'=>'cage_512.png','depend'=>array(),'desc'=>'+4 additional item slots');
+$perkbank[17] = array('title'=>'Storeroom vendor','artfile'=>'cage_512.png','depend'=>array(),'desc'=>'+1 auction house slot','bonus'=>'ah_slots','value'=>1);
 $perkbank[] = array('title'=>'Miner','artfile'=>'MetalOre_02.png','desc'=>'');
 $perkbank[] = array('title'=>'Geologist','artfile'=>'protectioncrystal.png','desc'=>'');
 $perkbank[] = array('title'=>'Arcanist','artfile'=>'Wand2_1.png','desc'=>'');
