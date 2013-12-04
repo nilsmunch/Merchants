@@ -6,11 +6,6 @@ $itembank = $lib_items;
 
 $itembank['gold'] = array('name'=>'Gold coins','artfile'=>'coins.png','name_plural'=>'Gold coins');
 
-$itembank['bag_herbs'] = array('name'=>'Herb bag','artfile'=>'satchel.png','skillgrant'=>'herbalism',
-    'entrypoint_market' => '1',
-    'market_price' => '5',
-    'storekey' => 'tool');
-
 $itembank['tool_loom'] = array('name'=>'Wooden loom','artfile'=>'loom.png','skillgrant'=>'looming',
     'entrypoint_market' => '1',
     'market_price' => '25',

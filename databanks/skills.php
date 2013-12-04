@@ -4,7 +4,13 @@ include('passive_skills.php');
 
 // FLORA
 $skillbank['fruitpicking'] = array('name'=>'Fruitpicking','category'=>'flora','travel_vs_process'=>0.9);
+$skillbank['fruitpicking']['rarekeys'] = array(0=>'pumpkin',1=>'pumpkin');
+
 $skillbank['herbalism'] = array('name'=>'Herbalism','category'=>'flora','travel_vs_process'=>0.8);
+$skillbank['herbalism']['rarekeys'] = array(0=>'herb_dracorns',1=>'herb_dracorns',2=>'herb_dracorns',3=>'herb_dracorns',4=>'herb_dracorns');
+
+
+
 $skillbank['farming'] = array('name'=>'Farming','category'=>'flora');
 
 /// PROCESS
@@ -38,7 +44,9 @@ $skillbank['entertaining'] = array('name'=>'Entertainment','category'=>'flora');
 $skillbank['leadership'] = array('name'=>'Leadership','category'=>'flora');
 
 // INDUSTRY
-$skillbank['mining'] = array('name'=>'Mining','category'=>'flora');
+$skillbank['mining'] = array('name'=>'Mining','category'=>'industry');
+$skillbank['mining']['rarekeys'] = array(0=>'citrine_polished',1=>'topaz',2=>'herb_dracorns',3=>'herb_dracorns',4=>'herb_dracorns');
+
 $skillbank['masonry'] = array('name'=>'Masonry','category'=>'flora');
 $skillbank['lumbering'] = array('name'=>'Lumbering','category'=>'flora');
 

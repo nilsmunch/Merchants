@@ -16,4 +16,7 @@ include('panel_inventory.php');
 
 
 echo $inventorywindow['html'];
+
+echo javaCheck();
+
 ?>

@@ -81,6 +81,14 @@
     'itemgain' => 'wood_oak',
     'gearneed' => 'lumbering',
     'transitive' => 'Cutting down oak trees',
+    'requirements' => 
+    array (
+      0 => 
+      array (
+        'type' => 'courage',
+        'value' => '0',
+      ),
+    ),
   ),
   'finding_wood_oak_6' => 
   array (
@@ -104,24 +112,6 @@
   ),
   'finding_wood_oak_8' => 
   array (
-    'title' => 'Lumber oak in Spiderling Woods',
-    'qty' => 30,
-    'time' => 1980,
-    'itemgain' => 'wood_oak',
-    'taskart' => 'action_blackbite.png',
-    'gearneed' => 'lumbering',
-    'transitive' => 'Cutting down oak trees',
-    'requirements' => 
-    array (
-      0 => 
-      array (
-        'type' => 'courage',
-        'value' => 2,
-      ),
-    ),
-  ),
-  'finding_wood_oak_9' => 
-  array (
     'title' => 'Lumber oak in Farcreek',
     'qty' => 36,
     'time' => 2760,
@@ -135,6 +125,24 @@
       array (
         'type' => 'courage',
         'value' => 1,
+      ),
+    ),
+  ),
+  'finding_wood_oak_9' => 
+  array (
+    'title' => 'Lumber oak in Spiderling Woods',
+    'qty' => 30,
+    'time' => 1980,
+    'itemgain' => 'wood_oak',
+    'taskart' => 'action_blackbite.png',
+    'gearneed' => 'lumbering',
+    'transitive' => 'Cutting down oak trees',
+    'requirements' => 
+    array (
+      0 => 
+      array (
+        'type' => 'courage',
+        'value' => 2,
       ),
     ),
   ),
@@ -181,6 +189,14 @@
     'itemgain' => 'apple',
     'gearneed' => 'fruitpicking',
     'transitive' => 'Picking apples',
+    'requirements' => 
+    array (
+      0 => 
+      array (
+        'type' => 'courage',
+        'value' => '0',
+      ),
+    ),
   ),
   'finding_apple_0' => 
   array (
@@ -201,6 +217,8 @@
     'taskart' => NULL,
     'gearneed' => 'fruitpicking',
     'transitive' => 'Picking apples',
+    'rare_chance' => 1,
+    'rare_drop' => 'pumpkin',
   ),
   'finding_apple_2' => 
   array (
@@ -219,6 +237,8 @@
         'value' => 1,
       ),
     ),
+    'rare_chance' => 2,
+    'rare_drop' => 'pumpkin',
   ),
   'crafting_salty_potion' => 
   array (
@@ -261,6 +281,14 @@
     'itemgain' => 'stone_sandstone',
     'gearneed' => 'masonry',
     'transitive' => 'Mining sandstone',
+    'requirements' => 
+    array (
+      0 => 
+      array (
+        'type' => 'courage',
+        'value' => '0',
+      ),
+    ),
   ),
   'crafting_herbpouch_masterwork' => 
   array (
@@ -292,6 +320,14 @@
     'itemgain' => 'wool',
     'gearneed' => 'animalhusbandry',
     'transitive' => 'Gathering wool',
+    'requirements' => 
+    array (
+      0 => 
+      array (
+        'type' => 'courage',
+        'value' => '0',
+      ),
+    ),
   ),
   'crafting_potion_oaktime' => 
   array (
@@ -316,14 +352,6 @@
       ),
     ),
   ),
-  'finding_iron' => 
-  array (
-    'title' => 'Mine for iron',
-    'time' => '160',
-    'itemgain' => 'iron',
-    'gearneed' => 'mining',
-    'transitive' => 'Mining iron',
-  ),
   'finding_copper' => 
   array (
     'title' => 'Mine for copper',
@@ -331,6 +359,36 @@
     'itemgain' => 'copper',
     'gearneed' => 'mining',
     'transitive' => 'Mining copper',
+    'requirements' => 
+    array (
+      0 => 
+      array (
+        'type' => 'courage',
+        'value' => '0',
+      ),
+    ),
+    'rare_chance' => '10',
+    'rare_drop' => 'citrine_polished',
+  ),
+  'finding_copper_12' => 
+  array (
+    'title' => 'Dig deep for copper',
+    'qty' => 12,
+    'time' => 385,
+    'itemgain' => 'copper',
+    'taskart' => NULL,
+    'gearneed' => 'mining',
+    'transitive' => 'Mining copper',
+    'requirements' => 
+    array (
+      0 => 
+      array (
+        'type' => 'courage',
+        'value' => 1,
+      ),
+    ),
+    'rare_chance' => 13,
+    'rare_drop' => 'citrine_polished',
   ),
   'finding_herb' => 
   array (
@@ -339,6 +397,14 @@
     'itemgain' => 'herb',
     'gearneed' => 'herbalism',
     'transitive' => 'Gathering herbs',
+    'requirements' => 
+    array (
+      0 => 
+      array (
+        'type' => 'courage',
+        'value' => '0',
+      ),
+    ),
   ),
   'finding_herb_6' => 
   array (
@@ -359,26 +425,10 @@
     'taskart' => 'action_thunderduskdocks.png',
     'gearneed' => 'herbalism',
     'transitive' => 'Gathering herbs',
+    'rare_chance' => 1,
+    'rare_drop' => 'herb_dracorns',
   ),
   'finding_herb_8' => 
-  array (
-    'title' => 'Gather herbs in Spiderling Woods',
-    'qty' => 30,
-    'time' => 495,
-    'itemgain' => 'herb',
-    'taskart' => 'action_blackbite.png',
-    'gearneed' => 'herbalism',
-    'transitive' => 'Gathering herbs',
-    'requirements' => 
-    array (
-      0 => 
-      array (
-        'type' => 'courage',
-        'value' => 2,
-      ),
-    ),
-  ),
-  'finding_herb_9' => 
   array (
     'title' => 'Gather herbs in Farcreek',
     'qty' => 36,
@@ -395,6 +445,28 @@
         'value' => 1,
       ),
     ),
+    'rare_chance' => 2,
+    'rare_drop' => 'herb_dracorns',
+  ),
+  'finding_herb_9' => 
+  array (
+    'title' => 'Gather herbs in Spiderling Woods',
+    'qty' => 30,
+    'time' => 495,
+    'itemgain' => 'herb',
+    'taskart' => 'action_blackbite.png',
+    'gearneed' => 'herbalism',
+    'transitive' => 'Gathering herbs',
+    'requirements' => 
+    array (
+      0 => 
+      array (
+        'type' => 'courage',
+        'value' => 2,
+      ),
+    ),
+    'rare_chance' => 2,
+    'rare_drop' => 'herb_dracorns',
   ),
   'finding_herb_10' => 
   array (
@@ -413,6 +485,8 @@
         'value' => 3,
       ),
     ),
+    'rare_chance' => 2,
+    'rare_drop' => 'herb_dracorns',
   ),
   'finding_herb_11' => 
   array (
@@ -431,6 +505,8 @@
         'value' => 4,
       ),
     ),
+    'rare_chance' => 3,
+    'rare_drop' => 'herb_dracorns',
   ),
   'crafting_xmas_honeybread' => 
   array (
@@ -581,6 +657,71 @@
       ),
     ),
   ),
+  'crafting_neck_peasants' => 
+  array (
+    'title' => '',
+    'time' => 30,
+    'itemgain' => 'neck_peasants',
+    'gearneed' => 'jewelcrafting',
+    'qty' => '1',
+    'requirements' => 
+    array (
+      0 => 
+      array (
+        'type' => 'itemqty',
+        'item' => 'copper',
+        'cost' => 3,
+      ),
+    ),
+  ),
+  'finding_pumpkin' => 
+  array (
+    'title' => '',
+    'time' => '0',
+    'itemgain' => 'pumpkin',
+    'gearneed' => '',
+    'transitive' => '',
+    'requirements' => 
+    array (
+      0 => 
+      array (
+        'type' => 'courage',
+        'value' => '0',
+      ),
+    ),
+  ),
+  'finding_herb_dracorns' => 
+  array (
+    'title' => '',
+    'time' => '0',
+    'itemgain' => 'herb_dracorns',
+    'gearneed' => '',
+    'transitive' => '',
+    'requirements' => 
+    array (
+      0 => 
+      array (
+        'type' => 'courage',
+        'value' => '0',
+      ),
+    ),
+  ),
+  'finding_topaz' => 
+  array (
+    'title' => '',
+    'time' => '0',
+    'itemgain' => 'topaz',
+    'gearneed' => '',
+    'transitive' => '',
+    'requirements' => 
+    array (
+      0 => 
+      array (
+        'type' => 'courage',
+        'value' => '0',
+      ),
+    ),
+  ),
   'crafting_waterskin_light' => 
   array (
     'title' => '',
@@ -603,6 +744,44 @@
         'cost' => 1,
       ),
     ),
+  ),
+  'finding_iron' => 
+  array (
+    'title' => 'Mine for iron',
+    'time' => '160',
+    'itemgain' => 'iron',
+    'gearneed' => 'mining',
+    'transitive' => 'Mining iron',
+    'requirements' => 
+    array (
+      0 => 
+      array (
+        'type' => 'courage',
+        'value' => '1',
+      ),
+    ),
+    'rare_chance' => '10',
+    'rare_drop' => 'topaz',
+  ),
+  'finding_iron_12' => 
+  array (
+    'title' => 'Dig deep for iron',
+    'qty' => 12,
+    'time' => 1760,
+    'itemgain' => 'iron',
+    'taskart' => NULL,
+    'gearneed' => 'mining',
+    'transitive' => 'Mining iron',
+    'requirements' => 
+    array (
+      0 => 
+      array (
+        'type' => 'courage',
+        'value' => 2,
+      ),
+    ),
+    'rare_chance' => 13,
+    'rare_drop' => 'topaz',
   ),
   'crafting_food_bakedsalmon' => 
   array (
@@ -827,14 +1006,6 @@
       ),
     ),
   ),
-  'finding_citrine_polished' => 
-  array (
-    'title' => 'Mine for citrine gemstones',
-    'time' => '200',
-    'itemgain' => 'citrine_polished',
-    'gearneed' => 'mining',
-    'transitive' => 'Digging for citrines',
-  ),
   'finding_leather_rough' => 
   array (
     'title' => 'Hunt for leather in City Outskirts',
@@ -842,6 +1013,14 @@
     'itemgain' => 'leather_rough',
     'gearneed' => 'hunting',
     'transitive' => 'Hunting',
+    'requirements' => 
+    array (
+      0 => 
+      array (
+        'type' => 'courage',
+        'value' => '0',
+      ),
+    ),
   ),
   'finding_leather_rough_6' => 
   array (
@@ -865,24 +1044,6 @@
   ),
   'finding_leather_rough_8' => 
   array (
-    'title' => 'Hunt for leather in Spiderling Woods',
-    'qty' => 30,
-    'time' => 1485,
-    'itemgain' => 'leather_rough',
-    'taskart' => 'action_blackbite.png',
-    'gearneed' => 'hunting',
-    'transitive' => 'Hunting',
-    'requirements' => 
-    array (
-      0 => 
-      array (
-        'type' => 'courage',
-        'value' => 2,
-      ),
-    ),
-  ),
-  'finding_leather_rough_9' => 
-  array (
     'title' => 'Hunt for leather in Farcreek',
     'qty' => 36,
     'time' => 2070,
@@ -896,6 +1057,24 @@
       array (
         'type' => 'courage',
         'value' => 1,
+      ),
+    ),
+  ),
+  'finding_leather_rough_9' => 
+  array (
+    'title' => 'Hunt for leather in Spiderling Woods',
+    'qty' => 30,
+    'time' => 1485,
+    'itemgain' => 'leather_rough',
+    'taskart' => 'action_blackbite.png',
+    'gearneed' => 'hunting',
+    'transitive' => 'Hunting',
+    'requirements' => 
+    array (
+      0 => 
+      array (
+        'type' => 'courage',
+        'value' => 2,
       ),
     ),
   ),

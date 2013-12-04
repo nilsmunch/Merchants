@@ -41,23 +41,24 @@ if (!$min['currentAction']) {
 
 	minionBoosts($g['minions'][$pit]);
 
-print_r($boosts);
 
 
 foreach ($actionbank as $key => $opt) {
+	if (!$opt['title']) {continue;}
 	$taskbox = '';
 	$bring = 'true';
 	$ing = '';
 	$boost = 0;
 	if ($opt['requirements']) {
 		foreach ($opt['requirements'] as $req) {
-			if ($req['type']=='courage') {
+			if ($req['type']=='courage' && $req['value'] > 0) {
 				if ((int)$boosts['courage'] < $req['value']) {
 					$bring = 'cour';
 					$ing .= '<div class="taskdetail negative">Needs '.$req['value'].' courage</div>';
 				} else {
 					$ing .= '<div class="taskdetail">Needs '.$req['value'].' courage</div>';}
 			}
+			/*
 			if ($req['type']=='itemqty') {
 				if ((int)$g['inventory'][$req['item']] < $req['cost'] || !$g['inventory'][$req['item']]) {
 					$bring = 'res';
@@ -67,8 +68,11 @@ foreach ($actionbank as $key => $opt) {
 					$ing .= '<div class="taskdetail">Needs '.$req['cost'].' x '.$req['item'].'</div>';
 				}
 			}
+			*/
 		}
 	}
+	
+	
 	if (!$opt['qty']) {$opt['qty'] = 1;}
 	$details = '';
 	if ($opt['qty']) {
@@ -77,9 +81,14 @@ foreach ($actionbank as $key => $opt) {
 	if (!$itemdata['name_plural']) {$itemdata['name_plural'] = $itemdata['name'].'s';}
 	if ($opt['qty'] == 1) {$itemdata['name_plural'] = $itemdata['name'];}
 	$opt['xp'] = gatherOutcome($opt['qty'],$opt['itemgain'],$opt['gearneed']);
-	$details = 'Gain '.gatherOutcome($opt['qty'],$opt['itemgain'],$opt['gearneed'],true).' '.$itemdata['name_plural'];
+	$details = '<div  class="taskdetail">Gain '.gatherOutcome($opt['qty'],$opt['itemgain'],$opt['gearneed'],true).' '.$itemdata['name_plural'].'</div>';
 	}
-	$details .= ' <font style="color:#45c954;background-color:rgba(0,0,0,0.9);padding:4px;position:absolute;bottom:0px;right:0px">+ '.$opt['xp'].' XP</font>';
+	
+	
+	$details .= dropChances($opt);
+	
+	
+	$details .= '<span style="color:#45c954;background-color:rgba(0,0,0,0.9);padding:4px;position:absolute;bottom:0px;right:0px">+ '.$opt['xp'].' XP</span>';
 
 	if ($opt['special']) {
 		$bring = false;
@@ -97,15 +106,15 @@ foreach ($actionbank as $key => $opt) {
 
 
 
-	if ($details) {$taskbox .= '<div  class="taskdetail">'.$details.'</div>';	}
+	if ($details) {$taskbox .= $details;	}
 }
 	if ($bring == 'res') {
 		$timevar = minionTaskTime($opt);
-		$taskbox .= '<a href="#">'.$opt['title'].' </a>'.$timevar['labels_box'].$ing;
+		$taskbox .= '<a href="#">'.$opt['title'].'</a>'.$timevar['labels_box'].$ing;
 	}
 	if ($bring == 'cour') {
 		$timevar = minionTaskTime($opt);
-		$taskbox .= '<a href="#">'.$opt['title'].' </a>'.$timevar['labels_box'].($details ? '<div  class="taskdetail">'.$details.'</div>' :'').$ing;
+		$taskbox .= '<a href="#">'.$opt['title'].'</a>'.$timevar['labels_box'].($details ? '<div  class="taskdetail">'.$details.'</div>' :'').$ing;
 	}
 	if ($taskbox) {
 
@@ -127,7 +136,7 @@ $countup[$opt['gearneed']] += 1;
 
 }
 echo '<div style="background-color:rgba(0,0,0,0.9);position:fixed;left:0px;right:0px;top:0px;bottom:0px;text-align:center">';
-echo '<table width=50% style="margin-right: auto;margin-left: auto;"><tr>';
+echo '<table width=50% style="margin-right: auto;margin-left: auto;" class="taskpicker"><tr>';
 foreach ((array)$optionbar as $barkey => $bar) {
 
 if ($skillbank[$barkey]['craftskill']) {unset($bar);}

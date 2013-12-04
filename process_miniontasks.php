@@ -11,7 +11,7 @@ foreach ($g['minions'] as $pit => $min) {
 	$response['feedback'] = '';
 	if ($action['donetime']) {
 		$actiondata = $actionbank[$action['name']];
-		$timeleft = '<span>'.$actiondata['transitive'].' ('.($action['donetime']-$time).'s) </span>';
+		$timeleft = '<span class="center">'.$actiondata['transitive'].' ('.($action['donetime']-$time).'s) </span>';
 		$process[$pit] = $timeleft;
 		$taskartbank[$pit] = $actiondata['taskart'];
 		
@@ -23,13 +23,30 @@ foreach ($g['minions'] as $pit => $min) {
 			$qty = gatherOutcome($actiondata['qty'],$actiondata['itemgain'],$actiondata['gearneed']);
 			$itemdata = $itembank[$actiondata['itemgain']];
 			
-
-			$timeleft = '<span><table><tr><td width=50%>'.itemIcon($itemdata).' x '.$qty.'<td width=50%><a href="#" onClick="minionCollectGoods(\'collect_from_goon\','.$pit.')">Collect</a></table></span>';
+			if (!$action['rares']) {
+			$raredrops = calcRareDrops($actiondata,$qty);
+			$g['minions'][$pit]['currentAction']['rares'] = $raredrops;
+			} else {
+			$raredrops = $action['rares'];
+			}
+			$droplist = '';
+			foreach ($raredrops as $drop) {
+				$dropdata = $itembank[$drop['item']];
+				$droplist .= '<td width=50%>'.itemIcon($dropdata).' x '.$drop['qty'].'';
+			}
+			
+			$timeleft = '<span><table><tr><td width=50%>'.itemIcon($itemdata).' x '.$qty.$droplist.'<td width=50%><a href="#" onClick="minionCollectGoods(\'collect_from_goon\','.$pit.')">Collect</a></table></span>';
 			$process[$pit] = $timeleft;
 			if ($_SESSION['collect']['collect_from_goon'.$pit]) {
 			if ($actiondata['itemgain']) {
 				addToInventory($actiondata['itemgain'],$qty);
 				$g['lifetime']['collected_'.$actiondata['itemgain']] += $qty;
+				
+				foreach ($raredrops as $drop) {
+					addToInventory($drop['item'],$drop['qty']);
+					$g['lifetime']['collected_'.$drop['item']] += $drop['qty'];
+				}
+				
 				xp_gain($qty);
 			}
 				$g['minions'][$pit] = spendItemTokens($g['minions'][$pit]);

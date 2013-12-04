@@ -28,8 +28,11 @@ function showItemBox($item,$qty,$extra="") {
 
 		if (strstr($item,':')) {
 			$itmbits = explode(':',$item); $item = $itmbits[0];
-			$itemdata = $itembank[$item]; $itemdata['itembreak_tokens'] = (int)$itmbits[1];
-		unset($extra);
+			$itemdata = $itembank[$item]; 
+			if ((int)$itmbits[1] != $itemdata['itembreak_tokens']) {
+			unset($extra);
+			}
+			$itemdata['itembreak_tokens'] = (int)$itmbits[1];
 		}
 		}
 
@@ -69,8 +72,8 @@ function showItemBox($item,$qty,$extra="") {
 	if ($extra) {$extra = '<div style="position:absolute;bottom:0px;right:0px;padding:4px;background-color:rgba(0,0,0,0.5)" class="actionpanel">'.$extra.'</div>';}
 	if ($itemdata['flairtext']) {$detail = '<div style="font-style:italic;padding:3px;font-size:12px;color:#a0574a;font-family:Times">'.$itemdata['flairtext'].'</div>';}
 
-
-	return '<div class="itembox">'.itemIcon($itemdata).'<span>'.($qty > 1 ? $qty : '').'</span> <b>'.$itemdata['name'].'</b>'.$extra.'<br>'.$bonuses.$detail.'</div>';
+	if ($itemdata['rarityscale'] == 1) {$itemclass = 'rare';}
+	return '<div class="itembox">'.itemIcon($itemdata).'<span>'.($qty > 1 ? $qty : '').'</span> <b class="'.$itemclass.'">'.$itemdata['name'].'</b>'.$extra.'<br>'.$bonuses.$detail.'</div>';
 }
 
 function achievementIcon($icon,$extra = "",$size=64) {

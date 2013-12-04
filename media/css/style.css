@@ -11,6 +11,8 @@ padding:0px;margin:0px;
         text-decoration: underline;
       }
       
+      a img {border:0px;}
+      
 h2 {
 	display:block;
 text-decoration:none;
@@ -19,6 +21,10 @@ font-weight:bold;
 font-style: italic;
 text-align: center;
 clear:both
+}
+
+.rare {
+	color:#3dd740 !important;
 }
 
 .minioninventory {text-align:center}
@@ -62,11 +68,11 @@ a.questcont {text-decoration:none;font-weight:bold;color:#49728a;	}
 .negative {color:orange;}
 
 .actionslab {
-height:100px;
-      line-height: 100px;
+	height:100px;
+    line-height: 100px;
 }
 
-.actionslab a {
+.actionslab a,.actionslab .center {
 	background-color:rgba(0,0,0,0.5);
 padding:10px;
   vertical-align: middle;
@@ -74,10 +80,21 @@ padding:10px;
 	text-decoration:none;font-weight:bold;color:white;
 }
 
+.taskpicker a {
+	padding:5px;
+	width: 340px;
+	display: block !important;
+}
+
+.taskpicker  a:hover {
+	color:goldenrod;
+}
+
+
 
 .actionslab span {
       display: inline-block;
-      vertical-align: middle;
+      vertical-align: top;
     
       line-height: normal;
 	text-decoration:none;font-weight:bold;color:white;

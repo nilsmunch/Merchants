@@ -1,4 +1,6 @@
 <?
+
+include('../config.php');
 header('Content-Type: text/event-stream');
 header('Cache-Control: no-cache');
 session_start();
@@ -9,6 +11,7 @@ include('databanks/skills.php');
 include('databanks/items.php');
 include('databanks/actions.php');
 
+include('modules/db_backup.php');
 include('modules/minions.php');
 include('modules/inventoryitems.php');
 include('modules/inventoryicons.php');
@@ -30,7 +33,11 @@ if ($_GET['act'] == 'resetall') {
 	unset($_SESSION['collect']);
 	unset($_SESSION['market_demand']);
 	$_SESSION['game_variables'] = array();
-die();
+	$g = array();
+	$g['minions'] = array(array('name'=>'NEW'));
+	$_SESSION['game_variables'] = $g;
+	db_saveUserCheck(true);
+die('test');
 }
 
 

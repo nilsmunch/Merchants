@@ -8,7 +8,7 @@
     'reward' => 
     array (
       'type' => 'gold',
-      'qty' => '20',
+      'qty' => 20,
     ),
     'category' => 'Gathering',
     'listener_min' => 5,
@@ -22,7 +22,7 @@
     'reward' => 
     array (
       'type' => 'gold',
-      'qty' => '50',
+      'qty' => 50,
     ),
     'listener_min' => 50,
     'category' => 'Gathering',
@@ -52,7 +52,7 @@
     'reward' => 
     array (
       'type' => 'gold',
-      'qty' => '20',
+      'qty' => 20,
     ),
     'category' => 'Gathering',
     'listener_min' => 5,
@@ -66,7 +66,7 @@
     'reward' => 
     array (
       'type' => 'gold',
-      'qty' => '50',
+      'qty' => 50,
     ),
     'listener_min' => 50,
     'category' => 'Gathering',
@@ -81,7 +81,7 @@
     'reward' => 
     array (
       'type' => 'gold',
-      'qty' => '50',
+      'qty' => 100,
     ),
     'listener_min' => 250,
     'category' => 'Gathering',
@@ -96,7 +96,7 @@
     'reward' => 
     array (
       'type' => 'gold',
-      'qty' => '20',
+      'qty' => 20,
     ),
     'category' => 'Gathering',
     'listener_min' => 5,
@@ -110,7 +110,7 @@
     'reward' => 
     array (
       'type' => 'gold',
-      'qty' => '50',
+      'qty' => 50,
     ),
     'listener_min' => 50,
     'category' => 'Gathering',
@@ -140,7 +140,7 @@
     'reward' => 
     array (
       'type' => 'gold',
-      'qty' => '20',
+      'qty' => 20,
     ),
     'category' => 'Gathering',
     'listener_min' => 5,
@@ -154,7 +154,7 @@
     'reward' => 
     array (
       'type' => 'gold',
-      'qty' => '50',
+      'qty' => 50,
     ),
     'listener_min' => 50,
     'category' => 'Gathering',
@@ -166,13 +166,41 @@
     'artfile' => 'herbs.png',
     'listener' => 'craftspent_herb',
     'category' => 'Crafting',
-    'formulation' => 'Spent XX Herbs on crafts',
+    'formulation' => 'Spent XX Sunweed on crafts',
     'reward' => 
     array (
       'type' => 'gold',
       'qty' => '50',
     ),
     'listener_min' => 100,
+  ),
+  'ach_1_pumpkin' => 
+  array (
+    'name' => 'Squish squash',
+    'artfile' => '0106_pumpkin_512.png',
+    'listener' => 'collected_pumpkin',
+    'formulation' => 'Collect XX Wild Pumpkin',
+    'reward' => 
+    array (
+      'type' => 'gold',
+      'qty' => 50,
+    ),
+    'category' => 'Gathering',
+    'listener_min' => 5,
+  ),
+  'ach_1_topaz' => 
+  array (
+    'name' => 'Topatastic!',
+    'artfile' => 'SappireCrystal04.png',
+    'listener' => 'collected_topaz',
+    'formulation' => 'Collect XX Raw topaz',
+    'reward' => 
+    array (
+      'type' => 'gold',
+      'qty' => 50,
+    ),
+    'category' => 'Gathering',
+    'listener_min' => 5,
   ),
   'ach_craft1_basespice' => 
   array (

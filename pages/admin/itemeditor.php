@@ -29,7 +29,7 @@ foreach ($item as $key => $val) {
 
 
 	if ($bring) {
-	$form .= '<div><label style="display:inline-block;width:130px">'.$key.':</label>'.$selection.'</div>';
+	$form .= '<div><label style="display:inline-block;width:230px">'.$key.':</label>'.$selection.'</div>';
 	}
 }
 

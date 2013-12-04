@@ -1,9 +1,11 @@
 <?
 db_connect();
 
+include('databanks/skills.php');
+
 $variations[] = array('trigger'=> 'City Gardens','place'=>'Windy Vineyards','qty_multi'=>5,'time_multi'=>6,'danger'=>0);
-$variations[] = array('trigger'=> 'City Gardens','place'=>'Creeky Woods','qty_multi'=>16,'time_multi'=>20,'danger'=>0);
-$variations[] = array('trigger'=> 'City Gardens','place'=>'Gallow Acres','qty_multi'=>34,'time_multi'=>40,'danger'=>1,'taskart'=>'action_gallowacres.png');
+$variations[] = array('trigger'=> 'City Gardens','place'=>'Creeky Woods','qty_multi'=>16,'time_multi'=>20,'danger'=>0,'rarechance'=>1);
+$variations[] = array('trigger'=> 'City Gardens','place'=>'Gallow Acres','qty_multi'=>34,'time_multi'=>40,'danger'=>1,'taskart'=>'action_gallowacres.png','rarechance'=>2);
 
 $variations[] = array('trigger'=> 'City River','place'=>'Silverling Lake','qty_multi'=>7,'time_multi'=>9,'danger'=>0,'taskart'=>'action_silverlinglake.png');
 $variations[] = array('trigger'=> 'City River','place'=>'Thunderdusk Docks','qty_multi'=>21,'time_multi'=>25,'danger'=>0,'taskart'=>'action_thunderduskdocks.png');
@@ -11,11 +13,16 @@ $variations[] = array('trigger'=> 'City River','place'=>'Blackbite Sea','qty_mul
 
 
 $variations[] = array('trigger'=> 'City Outskirts','place'=>'Brokewater Forest','qty_multi'=>7,'time_multi'=>9,'danger'=>0,'taskart'=>'action_silverlinglake.png');
-$variations[] = array('trigger'=> 'City Outskirts','place'=>'Thousand Oaks','qty_multi'=>21,'time_multi'=>25,'danger'=>0,'taskart'=>'action_thunderduskdocks.png');
-$variations[] = array('trigger'=> 'City Outskirts','place'=>'Spiderling Woods','qty_multi'=>30,'time_multi'=>33,'danger'=>2,'taskart'=>'action_blackbite.png');
-$variations[] = array('trigger'=> 'City Outskirts','place'=>'Farcreek','qty_multi'=>36,'time_multi'=>46,'danger'=>1,'taskart'=>'action_blackbite.png');
-$variations[] = array('trigger'=> 'City Outskirts','place'=>'the Darks of Dunkelberg','qty_multi'=>60,'time_multi'=>60,'danger'=>3,'taskart'=>'action_blackbite.png');
-$variations[] = array('trigger'=> 'City Outskirts','place'=>'Living Forest of Qurash','qty_multi'=>120,'time_multi'=>110,'danger'=>4,'taskart'=>'action_blackbite.png');
+$variations[] = array('trigger'=> 'City Outskirts','place'=>'Thousand Oaks','qty_multi'=>21,'time_multi'=>25,'danger'=>0,'taskart'=>'action_thunderduskdocks.png','rarechance'=>1);
+
+$variations[] = array('trigger'=> 'City Outskirts','place'=>'Farcreek','qty_multi'=>36,'time_multi'=>46,'danger'=>1,'taskart'=>'action_blackbite.png','rarechance'=>2);
+
+$variations[] = array('trigger'=> 'City Outskirts','place'=>'Spiderling Woods','qty_multi'=>30,'time_multi'=>33,'danger'=>2,'taskart'=>'action_blackbite.png','rarechance'=>2);
+$variations[] = array('trigger'=> 'City Outskirts','place'=>'the Darks of Dunkelberg','qty_multi'=>60,'time_multi'=>60,'danger'=>3,'taskart'=>'action_blackbite.png','rarechance'=>2);
+$variations[] = array('trigger'=> 'City Outskirts','place'=>'Living Forest of Qurash','qty_multi'=>120,'time_multi'=>110,'danger'=>4,'taskart'=>'action_blackbite.png','rarechance'=>3);
+
+
+$variations[] = array('trigger'=> 'Mine for','place'=>'Dig deep for','qty_multi'=>12,'time_multi'=>11,'danger'=>1,'rarechance'=>3);
 
 
 function writeCache($key,$object) {
@@ -76,6 +83,15 @@ while ($item = mysql_fetch_assoc($itemsQ)) {
 		$act['itemgain'] = $item['itemkey'];
 		$act['gearneed'] = $item['finding_skill'];
 		$act['transitive'] = $item['finding_action_transitive'];
+		
+		$danger = $item['finding_action_danger'];
+		if ($var['danger']) { $act['requirements'][] = array('type'=>'courage','value'=> $danger);}
+		
+		
+		if ($item['finding_action_dropchance'] && $skillbank[$item['finding_skill']]['rarekeys'][$item['finding_action_danger']]) {
+			$act['rare_chance'] = $item['finding_action_dropchance'];
+			$act['rare_drop'] = $skillbank[$item['finding_skill']]['rarekeys'][$item['finding_action_danger']];
+		}
 		$actionbank['finding_'.$item['itemkey']] = $act;
 
 
@@ -85,7 +101,7 @@ while ($item = mysql_fetch_assoc($itemsQ)) {
 			$ach['artfile'] = $item['ach_1_artwork'];
 			$ach['listener'] = 'collected_'.$itemkey;
 			$ach['formulation'] = 'Collect XX '.$item['name'];
-			$ach['reward'] = array('type'=>'gold','qty'=>'20');
+			$ach['reward'] = array('type'=>'gold','qty'=>20 + (30*$item['rarityscale']));
 			$ach['category'] = 'Gathering';
 			$ach['listener_min'] = 5;
 			$achbank['ach_1_'.$itemkey] = $ach;
@@ -98,7 +114,7 @@ while ($item = mysql_fetch_assoc($itemsQ)) {
 			$ach['artfile'] = $item['ach_2_artwork'];
 			$ach['listener'] = 'collected_'.$itemkey;
 			$ach['formulation'] = 'Collect XX '.$item['name'];
-			$ach['reward'] = array('type'=>'gold','qty'=>'50');
+			$ach['reward'] = array('type'=>'gold','qty'=>50 + (50*$item['rarityscale']));
 			$ach['listener_min'] = 50;
 			$ach['category'] = 'Gathering';
 			$ach['prerequisite'] = 'ach_1_'.$itemkey;
@@ -111,7 +127,7 @@ while ($item = mysql_fetch_assoc($itemsQ)) {
 			$ach['artfile'] = $item['ach_3_artwork'];
 			$ach['listener'] = 'collected_'.$itemkey;
 			$ach['formulation'] = 'Collect XX '.$item['name'];
-			$ach['reward'] = array('type'=>'gold','qty'=>'50');
+			$ach['reward'] = array('type'=>'gold','qty'=>100 + (50*$item['rarityscale']));
 			if ($item['ach_3_reward']) {$ach['reward'] = array('type'=>$item['ach_3_reward'],'qty'=>'1');}
 			$ach['listener_min'] = 250;
 			$ach['category'] = 'Gathering';
@@ -124,6 +140,11 @@ while ($item = mysql_fetch_assoc($itemsQ)) {
 
 	if (strstr($item['finding_action_name'],$var['trigger'])) {
 		$act = array();
+		$danger = $item['finding_action_danger'] +  $var['danger'];
+		$dropdanger = $var['danger'];
+		if ($item['finding_action_dropchance']) {$dropdanger = $item['finding_action_danger'];}
+		
+		$droprate = $item['finding_action_dropchance'] + $var['rarechance'];
 		$act['title'] = str_replace($var['trigger'],$var['place'],$item['finding_action_name']);
 		$act['qty'] = $var['qty_multi'];
 		$act['time'] = $item['finding_time']*$var['time_multi'];
@@ -131,7 +152,13 @@ while ($item = mysql_fetch_assoc($itemsQ)) {
 		$act['taskart'] = $var['taskart'];
 		$act['gearneed'] = $item['finding_skill'];
 		$act['transitive'] = $item['finding_action_transitive'];
-		if ($var['danger']) { $act['requirements'][] = array('type'=>'courage','value'=> $var['danger']);}
+		if ($var['danger']) { $act['requirements'][] = array('type'=>'courage','value'=> $danger);}
+		
+		if ($droprate && $skillbank[$item['finding_skill']]['rarekeys'][$dropdanger]) {
+			$act['rare_chance'] = $droprate;
+			$act['rare_drop'] = $skillbank[$item['finding_skill']]['rarekeys'][$dropdanger];
+		}
+		
 		$actionbank['finding_'.$item['itemkey'].'_'.$key] = $act;
 }
 }

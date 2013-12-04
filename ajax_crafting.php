@@ -32,16 +32,14 @@ function shopTap($shop) {
 	$assistants = array();
 foreach ($g['minions'] as $pit => $min) {
 	$slot = 0;
-	while ($slot < $min['slots']) {
-		if ($min['items'][$slot]) {
-			$itemdata = $itembank[$min['items'][$slot]];
-			if ($itemdata['skillgrant']) {
-				$assistants[$itemdata['skillgrant']][] = $pit;
+	foreach ($min['items'] as $key) {
+		if (strstr($key,':')) {
+			$itmbits = explode(':',$key); $key = $itmbits[0];
 			}
-		} else {
-			$minionitems .= ' '.itemIcon(array());	
-		}
-		$slot++;
+			$itemdata = $itembank[$key];
+			if ($itemdata['skillgrant']) {
+				$assistants[$itemdata['skillgrant']][$pit] = $pit;
+			}
 	}
 
 }
@@ -86,13 +84,14 @@ if ($itemdata['craft_recipekey']) {
 if (!$needs_recipe) {
 $taskbox = itemIcon($itemdata).'<td valign=top style="padding:3px;background-color:black;color:white">'.($itemdata['craft_qty'] != 1 ? $itemdata['craft_qty'].' x ': '').$itemdata['name'].showItemBox($opt['itemgain'],1,'description').'<td>'.$inglist;
 	
-$taskbox .= '<td>';
+$taskbox .= '<td style="text-align:right">';
 
 
 foreach ((array)$assistants[$opt['gearneed']] as $ass) {
 	$min = $g['minions'][$ass];
 	minionBoosts($min);
 	$timevar = minionTaskTime($opt);
+	$assbox = '';
 if (!$bring) {
 	$assbox = '<a href="#" style="display:block;font-weight:bold;color:white;text-decoration:none" onClick="performAct('.(int)$ass.',\''.$key.'\');showView(\'#result\');">Assign '.$min['name'].'</a>'.$timevar['labels'];
 } else {
@@ -101,6 +100,9 @@ if (!$bring) {
 if ($min['currentAction']) {
 	$assbox = '<a href="#" style="display:block;font-weight:bold;color:grey;text-decoration:none">Assign '.$min['name'].' (busy)</a>';
 }
+
+if ($assbox == '') {$assbox = 'You have no servants with the proper tools for this craft.';}
+
 $taskbox .= $assbox;
 }
 
@@ -120,12 +122,12 @@ $taskbox .= $assbox;
 
 
 
-echo '<table cellspacing=0 cellpadding=0 width=100%><tr><td width=100 valign=top>';
+echo '<table cellspacing=0 cellpadding=0 width=100% style="padding:4px;"><tr><td width=100 valign=top>';
 ksort($skillbank);
 foreach ($skillbank as $skillkey => $skill) {
 if ($skill['craftskill']) {
 shopTap($skillkey);}
 }
-echo '<td style="background-color:#2d2800" valign=top><table cellspacing=0 cellpadding=0 width=100% style="margin:4px;">'.$page[$thisshop].'</table>';
+echo '<td style="background-color:#2d2800;padding:4px;" valign=top><table cellspacing=0 cellpadding=0 width=100%>'.$page[$thisshop].'</table>';
 echo '</table>';
 ?>

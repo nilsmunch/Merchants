@@ -1,5 +1,7 @@
 <?
 
+include('raredrops.php');
+
 function minionTaskTime ($task) {
 	global $skillbank,$boosts;
 	$tasktime = array();
@@ -36,8 +38,8 @@ background-color:rgba(0,0,0,0.9);padding:4px;position:absolute;bottom:0px;left:0
 function minionHeader($min,$wid = 30) {
 
 	$face = '<img src="/media/art/faces/face_'.strtolower($min['name']).'.png" style="float:right">';
-	$minionpage .= '<div style="width:'.$wid.'%;float:left;border:2px solid black;padding:0px;margin:2px;min-height:250px;">'.$face;
-	$minionpage .= '<div style="background-color:black;color:white;padding:5px;height:71px;"><b>'.$min['name'].'</b><br>Level 1</div>';
+	$minionpage .= '<div style="width:'.$wid.'%;float:left;border:2px solid black;padding:0px;margin:2px;min-height:150px;">'.$face;
+	$minionpage .= '<div style="background-color:black;color:white;padding:5px;height:71px;"><b>'.$min['name'].'</b></div>';
 	return $minionpage;
 }
 

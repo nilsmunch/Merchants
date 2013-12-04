@@ -1,12 +1,11 @@
 <?
 
-
 if (!$g['minions']) {$g['minions'] = array(array('name'=>'NEW'));
 include('databanks/actions.php');}
 
 if ($g['lifetime']['minions_hired'] < count($g['minions'])) {$g['lifetime']['minions_hired'] = count($g['minions']);}
 
-$minionpage = '<div>Servants:</div>';
+$minionpage = '';
 
 $randomnames = array('Gendry','Podrick','Illing','Lars','Sigrid','Ulfric','Bjorn','Davik','Aslak','Yshin');
 
@@ -32,7 +31,7 @@ foreach ($g['minions'] as $pit => $min) {
 	$actiondata = $actionbank[$min['currentAction']['name']];
 	$minionpage .= minionHeader($min,'350 ');
 
-	$minionpage .= '<div style="padding:4px;" >';
+	$minionpage .= '<div style="position:relative" >';
 	$minionitems = '';
 	$slot = 0;
 	$skillset = array();
@@ -44,19 +43,19 @@ foreach ($g['minions'] as $pit => $min) {
 			$itmbits = explode(':',$itm); $itm = $itmbits[0];
 			$itemdata = $itembank[$itm]; $itemdata['itembreak_tokens'] = (int)$itembits[1];
 		}
-			$minionitems .= ' '.itemIcon($itemdata).'';
+			$minionitems .= ''.itemIcon($itemdata,'',40).'';
 			if ($itemdata['skillgrant'] && $itemdata['skillgrant'] != 'passive') {	
 			$skillset[$itemdata['skillgrant']] += 1;
 }
 		} else {
-			$minionitems .= ' '.itemIcon(array());	
+			$minionitems .= ''.itemIcon(array(),'',40);	
 		}
 		$slot++;
 	}
 	if (!$busy) {
 		$minionitems = '<a href="#" onClick="gearupGoon('.$pit.')" style="text-decoration:none;">'.$minionitems.'</a>';
 	}
-	$minionpage .= '<div class="minioninventory">'.$minionitems.'</div>';
+	$minionpage .= '<div class="minioninventory" style="position:absolute;top:-52px;">'.$minionitems.'</div>';
 
 	
 	$minionpage .= '</div>';

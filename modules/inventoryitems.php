@@ -54,11 +54,18 @@ function minionBoosts($minion) {
 			if ($itemdata['gather_boost_'.$key]) {
 				$boosts[$key] += $itemdata['gather_boost_'.$key];
 			}
+			if ($itemdata[$key.'_shorten_percent']) {
+				$boosts[$key.'_shorten_percent'] += $itemdata[$key.'_shorten_percent'];
+			}
+			
 		}
 		if ($itemdata['travelspeed_shorten_percent']) {
 			$boosts['travelspeed_shorten_percent'] += $itemdata['travelspeed_shorten_percent'];
 		}
 
+		if ($itemdata['rare_find']) {
+			$boosts['rare_find'] += $itemdata['rare_find'];
+		}
 		if ($itemdata['courage']) {
 			$boosts['courage'] += $itemdata['courage'];
 		}
@@ -107,11 +114,12 @@ function removeWornItem($item,$goon) {
 
 
 function addToInventory($item,$qty = 1) {
-	global $g,$run_js;
+	global $g,$run_js,$itembank;
+	$itemdata = $itembank[$item];
 	$g['inventory'][$item] += $qty;
 	unset($_SESSION['inventoryReload']);
 	$run_js .= 'jQuery.noticeAdd({
-				text: "+ '.$qty.' '.$item.'",
+				text: "+ '.$qty.' '.$itemdata['name'].str_replace('"','\\\'',itemIcon($itemdata,'position:absolute;right:10px;top:8px',30)).'",
 				stay: false
 			});';
 }
