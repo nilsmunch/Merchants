@@ -2,7 +2,7 @@
 include('databanks/items.php');
 include('modules/inventoryitems.php');
 include('modules/inventoryicons.php');
-include('modules/experiencepoints.php');
+include_once('modules/experiencepoints.php');
 
 $hiddenview = true;
 session_start();
@@ -24,9 +24,13 @@ if ($itemdata['itemclass']== 'recipe') {
 }
 
 
+if ($itemdata['xp_flushskills']) {$g['skills'] = array();}
 
 if ($itemdata['xp_points_gain']) {xp_gain($itemdata['xp_points_gain'],'consume_'.$itemdata['itemclass']);}
 }
+
+
+
 
 echo 'Consuming';
 

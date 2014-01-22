@@ -11,12 +11,13 @@ echo $username;
 
 <div id="xp" style="text-align:center;font-size:10px;padding:4px">0 XP left to level up</div>
 
-<a href="#" onClick="showView('#result')" id="link_result" class="active" style="display:block"><img src="/media/art/button_hirelings.png">Servants</a>
-<a href="#" onClick="openInventory()" id="link_inventory" style="display:block"><img src="/media/art/button_bag.png">Inventory</a>
-<a href="#" onClick="openSkills()" id="link_skills" style="display:block"><img src="/media/art/icon_skills.png">Skills</a>
-<a href="#" onClick="openCrafting();showView('#crafting')" id="link_crafting" style="display:block"><img src="/media/art/button_craft.png">Crafting</a>
-<a href="#" onClick="openMarket();" id="link_marketplace" style="display:block"><img src="/media/art/button_market.png">Marketplace</a>
-<a href="#" onClick="openAuction();" id="link_auction" style="display:block"><img src="/media/art/button_market.png">AuctionHouse</a>
-<a href="#" onClick="openQuests();" id="link_quests" style="display:block"><img src="/media/art/button_quests.png">Quests</a>
-<a href="#" onClick="showView('#achievements')" id="link_achievements" style="display:block"><img src="/media/art/button_ach.png"><span id="achievements_badge">Achievements</span></a>
-<a href="#" onClick="openScores();" id="link_scoreboard" style="display:block"><img src="/media/art/button_highscore.png">Scoreboard</a>
+<a href="#" onClick="showView('#result')" id="link_result" class="active segment"><img src="/media/icons/goons.png">Servants</a>
+<a href="#" onClick="openHeroes()" id="link_heroes"  class="segment"><img src="/media/icons/heroes.png">Encounters</a>
+<a href="#" onClick="openInventory()" id="link_inventory"  class="segment"><img src="/media/icons/inventory.png">Inventory</a>
+<a href="#" onClick="openSkills()" id="link_skills" class="segment"><img src="/media/icons/skills.png">Skills</a>
+<a href="#" onClick="openCrafting();showView('#crafting')" id="link_crafting" class="segment"><img src="/media/icons/craft.png">Crafting</a>
+<a href="#" onClick="openMarket();" id="link_marketplace" class="segment"><img src="/media/icons/market.png">Marketplace</a>
+<a href="#" onClick="openAuction();" id="link_auction" class="segment"><img src="/media/icons/auction.png">Trading house</a>
+<a href="#" onClick="openQuests();" id="link_quests" class="segment"><img src="/media/icons/missions.png">Quests</a>
+<a href="#" onClick="openAchievements();" id="link_achievements" class="segment"><img src="/media/icons/achievements.png"><span id="achievements_badge">Achievements</span></a>
+<a href="#" onClick="openScores();" id="link_scoreboard" class="segment"><img src="/media/icons/leader_on.png">Scoreboard</a>

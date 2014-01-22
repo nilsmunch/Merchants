@@ -5,6 +5,8 @@ include('../config.php');
 include('databanks/items.php');
 include('modules/inventoryitems.php');
 include('modules/inventoryicons.php');
+include('gamemanagers/virtual_economy/market_inflation.php');
+
 $time = date('U');
 $marketRespawn = 60*60*1;
 
@@ -28,6 +30,9 @@ if ($_GET['action'] == 'buy') {
 	if ($pick['market_price_favorcoin']) {
 		$can = pricecheck('favor_coin',$pick['market_price_favorcoin'],true);
 	}
+	if ($pick['market_price_craftcoin']) {
+		$can = pricecheck('token_craft',$pick['market_price_craftcoin'],true);
+	}
 	
 	if ($pick['market_price_yulecoin']) {
 		$can = pricecheck('yulecoin',$pick['market_price_yulecoin'],true);
@@ -45,6 +50,7 @@ if ($_GET['action'] == 'buy') {
 		$notif = 'You can not afford this item!';
 }
 	$_SESSION['game_variables'] = $g;
+	if (isAdmin()) {unset($_SESSION['market_demand']);}
 }
 
 
@@ -54,7 +60,8 @@ if ($_GET['action'] == 'sell') {
 	processMultiplier($itemkey);
 	$can = pricecheck($itemkey,$itemdata['cityasking_qty'],true);
 	if ($can) {
-		addToInventory('gold',$itemdata['cityasking_gold']);
+		addToInventory('gold',MarketInflation::GetMarketBuyprice($itemdata));
+		MarketInflation::BoostMarketInflation($itemdata,$itemdata['cityasking_qty']);
 		$notif = 'Transaction complete! Hope to do business with you in the future.';
 		unset($_SESSION['market_demand']);
 	} else {
@@ -73,12 +80,12 @@ if (!$thisshop) {$thisshop = 'demand';}
 function shopTap($shop) {
 	global $thisshop;
 	$shopimage = 'media/shops/shoptab_'.$shop.'_'.($shop == $thisshop ? 'on':'off').'.png';
-	if (!file_exists($shopimage)) {$shopimage = $shop;
+	if (!file_exists($shopimage)) {$shopimage = ucfirst($shop);
 	
 	echo '<a href="#" style="position:relative;top:0px;" onClick="marketAction(\'market\',\''.$shop.'\')">'.$shopimage.'</a> &nbsp; ';
 	return;
 	} else {
-	$shopimage = '<img style="border:0px;height:145px;width:63px;" src="/'.$shopimage.'">';
+		$shopimage = '<img style="border:0px;height:145px;width:63px;" src="/'.$shopimage.'">';
 	}
 	echo '<a href="#" style="position:relative;top:'.($shop == $thisshop ? '0':'-38').'px;" onClick="marketAction(\'market\',\''.$shop.'\')">'.$shopimage.'</a>';
 }
@@ -89,6 +96,7 @@ shopTap('tool');
 shopTap('favor');
 shopTap('random');
 shopTap('yule');
+shopTap('recipes');
 shopTap('outlet');
 echo '</div>';
 	echo '<div style="clear:both;height:120px;">&nbsp;</div>';
@@ -107,7 +115,7 @@ $marketdemand = $_SESSION['market_demand'];
 
 if (!$marketdemand) {
 	$tombola = array_keys($itembank);
-	while (count($marketdemand) < 9) {
+	while (count($marketdemand) < 12) {
 		shuffle($tombola);
 		$pick = $itembank[$tombola[0]];
 		if (!$pick['cityasking_gold']) {unset($pick);}
@@ -119,16 +127,12 @@ if (!$marketdemand) {
 	}
 	$_SESSION['market_demand'] = $marketdemand;
 }
-if ($notif) {
-	echo '<div style="clear:both;text-align:center">'.$notif.'</div>';
-	unset($notif);
-}
 
 $demands = '';
 foreach ((array)$marketdemand as $itm) {
 	$itemdata = $itembank[$itm];
 	processMultiplier($itm);
-	$demands .= showItemBox($itm,$itemdata['cityasking_qty'],'<a href="#" onClick="marketAction(\'sell\',\''.$itm.'\')">Sell ('.$itemdata['cityasking_gold'].'&curren;)</a> You have : '.(int)$g['inventory'][$itm]);
+	$demands .= showItemBox($itm,$itemdata['cityasking_qty'],'<a href="#" onClick="marketAction(\'sell\',\''.$itm.'\')">Sell ('.MarketInflation::GetMarketBuyprice($itemdata).'&curren;)</a> You have : '.(int)$g['inventory'][$itm]);
 }
 
 echo $demands;
@@ -192,7 +196,7 @@ echo $offers;
 }
 
 /// TOOL STORE
-if (in_array($thisshop, array('tool','yule'))) {
+if (in_array($thisshop, array('tool','yule','recipes'))) {
 	$toolstore = array();
 	foreach ($itembank as $itemkey => $item) {
 		if ($item['storekey'] == $thisshop) {
@@ -202,6 +206,7 @@ if (in_array($thisshop, array('tool','yule'))) {
 
 	$storename['tool'] = 'General tools warehouse';
 	$storename['yule'] = 'Yuletide special store';
+	$storename['recipes'] = 'Industria Emporium';
 
 	echo '<h2>'.$storename[$thisshop].' :</h2>';
 
@@ -210,6 +215,9 @@ $extra = '<a href="#" onClick="marketAction(\'buy\',\''.$itmkey.'\')">Buy ('.$it
 
 if ($itemdata['market_price_favorcoin']) {
 $extra = '<a href="#" onClick="marketAction(\'buy\',\''.$itmkey.'\')">Buy ('.$itemdata['market_price_favorcoin'].' x Coin of Favor)</a>';}
+
+if ($itemdata['market_price_craftcoin']) {
+$extra = '<a href="#" onClick="marketAction(\'buy\',\''.$itmkey.'\')">Buy ('.$itemdata['market_price_craftcoin'].' x Coin of Craftmanship)</a>';}
 
 if ($itemdata['market_price_yulecoin']) {
 $extra = '<a href="#" onClick="marketAction(\'buy\',\''.$itmkey.'\')">Buy ('.$itemdata['market_price_yulecoin'].' x Yuletide tokens)</a>';}

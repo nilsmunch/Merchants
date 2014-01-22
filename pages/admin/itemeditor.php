@@ -1,4 +1,5 @@
 <?
+
 db_connect();
 
 if ($_POST) {
@@ -10,21 +11,24 @@ if ($_POST) {
 
 $_SESSION['edititem'] = $detail;
 
-$item = mysql_fetch_assoc(mysql_query('SELECT * FROM  `merch_items` WHERE id = '.$detail));
+$item = mysql_fetch_assoc(mysql_query('SELECT * FROM `merch_items` WHERE id = '.(int)$detail.' OR itemkey = "'.$detail.'"'));
 
-$form = '<form action="" method="POST" style="display:block;clear:both;">';
+$form = '<form action="/pages/admin/ajax/assistant.php" method="POST" id="editorform" style="display:block;clear:both;">';
 
 $ignore_keys = array('id');
 $entry_keys = array('entrypoint_market','entrypoint_findingtask');
 
 foreach ($item as $key => $val) {
 	$bring = true;
-	if (in_array($key,$ignore_keys)) {$bring = false;}
+	$selection = '<input type="text" value="'.$val.'" class="gameValue" name="'.$key.'" id="'.$key.'">';
+	
+	if (in_array($key,$ignore_keys)) {
+		$selection = '<input type="hidden" value="'.$val.'" name="'.$key.'" id="'.$key.'">'.$val;
+	}
 
-	$selection = '<input type="text" value="'.$val.'" name="'.$key.'">';
 
 	if (in_array($key,$entry_keys)) {
-	$selection = '<input type="radio" value="1" name="'.$key.'" '.($val ? 'CHECKED':'').'>Yes <input type="radio" value="0" '.(!$val ? 'CHECKED':'').' name="'.$key.'">No ';
+	$selection = '<input type="radio" value="1" class="gameValue" name="'.$key.'" id="'.$key.'" '.($val ? 'CHECKED':'').'>Yes <input class="gameValue" type="radio" value="0" '.(!$val ? 'CHECKED':'').' name="'.$key.'">No ';
 	}
 
 
@@ -33,7 +37,7 @@ foreach ($item as $key => $val) {
 	}
 }
 
-$form .= '<input type="submit"></form>';
+$form .= '</form>';
 
 	$itemkey = $detail;
 	$itembank[$itemkey] = $item;

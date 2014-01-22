@@ -12,6 +12,10 @@ $goongear['html'] = minionHeader($goon,100).'<div style="margin-left:auto;margin
 			$goon['slots']++;
 			unset($goon['items'][$slot]);
 		}
+		if ($itm == 'majestic_craft' && $goon['slots'] < 5) {
+			$goon['slots']++;
+			unset($goon['items'][$slot]);
+		}
 		if ($itm == '') {unset($goon['items'][$slot]);}
 		if (strstr($itm,':')) {
 			$itmbits = explode(':',$itm);
@@ -41,17 +45,36 @@ $goongear['html'] .= '</div>';
 $goongear['html'] .= '</div>';
 
 $goongear['html'] .= '<hr style="clear:both"><div style="font-size:24px">Inventory</div><div >';
+
 foreach ((array)$g['inventory'] as $item => $qty) {
+
+	if (strstr($item,':')) {
+		unset($g['inventory'][$item]);
+		$itmbits = explode(':',$item);
+		$item = $itmbits[0];
+		$g['inventory'][$item] = $qty;
+	}
+}
+
+foreach ((array)$g['inventory'] as $item => $qty) {
+
+	if (strstr($item,':')) {
+		$itmbits = explode(':',$item);
+		if ((int)$itmbits[1] <= 0) { unset($goon['items'][$slot]); }
+		$item = $itmbits[0];
+	}
+		
 	$itemdata = $itembank[$item];
 	if ($itemdata['skillgrant']) {
-
-$wearlink = '<a href="#" onClick="gearupGoonWear('.$minpip.',\''.$item.'\')">Wear</a>';
-if ($goon['slots'] <= count($goon['items'])) {$wearlink = 'Slots full';}
-$goongear['html'] .= showItemBox($item,$qty,$wearlink);
-}	
+		$wearlink = '<a href="#" onClick="gearupGoonWear('.$minpip.',\''.$item.'\')">Wear</a>';
+		if ($goon['slots'] <= count($goon['items'])) {$wearlink = 'Slots full';}
+		$goongear['html'] .= showItemBox($item,$qty,$wearlink);
+	}	
 }
 $goongear['html'] .= '</div>';
 
 $goongear['html'] .= '<a href="#" onClick="showView(\'#result\')" style="clear:both;display:block">Back to servants</a>';
+
+$_SESSION['game_variables'] = $g;
 
 ?>

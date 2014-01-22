@@ -23,7 +23,7 @@ function minionTaskTime ($task) {
 	$tasktime['totaltime'] = $tasktime['travel'] + $tasktime['process'];
 // LAbels
 
-$tasktime['labels'] = '<font style="color:cyan">'.$tasktime['travel'].'s travel</font> &middot; <font style="color:orange">'.$tasktime['process'].'s processing</font>';
+$tasktime['labels'] = '<font style="color:cyan">'.timeFormulate($tasktime['travel']).' travel</font> &middot; <font style="color:orange">'.timeFormulate($tasktime['process']).'</font>';
 
 if ($tasktime['travel'] == 0) {
 $tasktime['labels'] = ' <font style="color:orange">'.$tasktime['process'].'s</font>';

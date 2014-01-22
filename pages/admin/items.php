@@ -2,7 +2,7 @@
 db_connect();
 
 if ($detail == 'new') {
-mysql_query('INSERT INTO merch_items () values ()');
+mysql_query('INSERT INTO merch_items (creation_date) values (NOW())');
 	header('location:/admin/items');die();
 }
 

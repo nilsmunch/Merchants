@@ -3,13 +3,19 @@
 if (!$g['minions']) {$g['minions'] = array(array('name'=>'NEW'));
 include('databanks/actions.php');}
 
+$g['minions']= array_values($g['minions']); 
+
 if ($g['lifetime']['minions_hired'] < count($g['minions'])) {$g['lifetime']['minions_hired'] = count($g['minions']);}
 
 $minionpage = '';
 
-$randomnames = array('Gendry','Podrick','Illing','Lars','Sigrid','Ulfric','Bjorn','Davik','Aslak','Yshin');
+foreach ($g['minions'] as $pit => $min) {
+	if ($min['name'] == '') {unset($g['minions'][$pit]);}
+}
 
-$minionskills = array('skill_greenthumbs','skill_fisherman','skill_tailor','skill_precise','skill_arcanist','skill_crafty','skill_braveheart','skill_hawkeye','skill_earthsalt');
+$randomnames = array('Gendry','Podrick','Illing','Lars','Sigrid','Ulfric','Bjorn','Davik','Aslak','Yshin','Thoras','Marya','Kensi','Morak','Anika','Jora');
+
+$minionskills = array('skill_greenthumbs','skill_fisherman','skill_tailor','skill_precise','skill_arcanist','skill_crafty','skill_braveheart','skill_hawkeye','skill_earthsalt','skill_wildling','skill_scholar','skill_stout','skill_detail','skill_mason');
 
 $minionpage .= '<div style="width:100%">';
 
@@ -17,11 +23,15 @@ $minionpage .= '<div style="width:100%">';
 if ((int)$runningtasks > 0) {unset($_SESSION['mainscreenReload']);
 		$debug .= 'FLUSH';}
 
+
+
+
 foreach ($g['minions'] as $pit => $min) {
 	if (!$min['slots']) {$min['slots'] = 2;}
 	if (!$min['items']) {$min['items'] = array();}
 	
 	if ($min['name'] == 'NEW' || $min['name'] == '') {$min['name'] = $randomnames[$pit];}
+	
 	if ($minionskills[$pit] && $min['slots'] == 2) {
 		$min['slots'] = 3; 
 		array_unshift($min['items'],$minionskills[$pit]);
@@ -43,12 +53,12 @@ foreach ($g['minions'] as $pit => $min) {
 			$itmbits = explode(':',$itm); $itm = $itmbits[0];
 			$itemdata = $itembank[$itm]; $itemdata['itembreak_tokens'] = (int)$itembits[1];
 		}
-			$minionitems .= ''.itemIcon($itemdata,'',40).'';
+			$minionitems .= ''.itemIcon($itemdata,'',40,true).'';
 			if ($itemdata['skillgrant'] && $itemdata['skillgrant'] != 'passive') {	
 			$skillset[$itemdata['skillgrant']] += 1;
 }
 		} else {
-			$minionitems .= ''.itemIcon(array(),'',40);	
+			$minionitems .= ''.itemIcon(array(),'',40,true);	
 		}
 		$slot++;
 	}
@@ -70,7 +80,16 @@ foreach ($g['minions'] as $pit => $min) {
 	if ($process[$pit]) { 
 		$taskart = $taskartbank[$pit];
 		if (!$taskart) {$taskart = 'action_idle.png';}
-		$minionpage .= '<div id="min'.$pit.'" style="text-align:center;width:350px;border-top:2px solid black;height:100px;background-image:url(\'/media/actions/'.$taskart.'\')" class="actionslab">'.$process[$pit].'</div>';
+		$bottomBox = '<div id="min'.$pit.'" style="text-align:center;width:350px;border-top:2px solid black;height:100px;background-image:url(\'/media/actions/'.$taskart.'\')" class="actionslab">'.$process[$pit].'</div>';
+		if (!strstr($process[$pit], 'Collect')) {
+			$response['min'.$pit] = $bottomBox;
+		} else {
+			if (!$_SESSION['seen'.$pit]) {
+				$response['min'.$pit] = $bottomBox;
+				$_SESSION['seen'.$pit] = true;
+			}
+		}
+		$minionpage .= $bottomBox;
 
 	} else {
 
@@ -79,22 +98,22 @@ foreach ($g['minions'] as $pit => $min) {
 		foreach ($skillset as $skl => $points) {
 			$skilldata = $skillbank[$skl];	
 			if ($skilldata['skillgrant'] != 'passive') {
-				if ($skilldata['craftskill']) {$craft = true;} else {$gather = true;}
+				if ($skilldata['craftskill']) {$craft = $skl;} else {$gather = true;}
 			}
 		}
 
 		if ($craft) {
-		$bottomBox = '<div style="text-align:center;width:350px;border-top:2px solid black;height:100px;background-image:url(\'/media/actions/action_idle.png\')" class="actionslab"><a href="#" onClick="openCrafting();showView(\'#crafting\')">Assign craft.&#46;.</a></div>';
+		$bottomBox = '<div style="text-align:center;width:350px;border-top:2px solid black;height:100px;background-image:url(\'/media/actions/action_idle.png\')" class="actionslab"><a href="#" onClick="openCrafting(\'craftings\',\''.$craft.'\');showView(\'#crafting\')">Assign craft.&#46;.</a></div>';
 } else {
 
 		$bottomBox = '<div style="text-align:center;width:350px;border-top:2px solid black;height:100px;background-image:url(\'/media/actions/action_idle.png\')" class="actionslab"><a href="#" onClick="openTaskassign(\'list\','.$pit.')">Assign task...</a></div>';
 }
 
 		if ($craft && $gather) {
-		$bottomBox = '<div style="text-align:center;width:350px;border-top:2px solid black;height:100px;background-image:url(\'/media/actions/action_idle.png\')" class="actionslab"><span><a href="#" onClick="openCrafting();showView(\'#crafting\')">Assign craft.&#46;.</a> &nbsp; <a href="#" onClick="openTaskassign(\'list\','.$pit.')">Assign task...</a></span></div>';
+		$bottomBox = '<div style="text-align:center;width:350px;border-top:2px solid black;height:100px;background-image:url(\'/media/actions/action_idle.png\')" class="actionslab"><span style="margin-top:40px;"><a href="#" onClick="openCrafting(\'craftings\',\''.$craft.'\');showView(\'#crafting\')">Assign craft.&#46;.</a> &nbsp; <a href="#" onClick="openTaskassign(\'list\','.$pit.')">Assign task...</a></span></div>';
 }
-
-$minionpage .= $bottomBox;
+	$response['min'.$pit] = $bottomBox;
+	$minionpage .= $bottomBox;
 
 
 	}
@@ -108,7 +127,7 @@ $minionpage .= '</div>';
 
 
 	$hirelingprice = $actionbank['newhireling']['requirements'][0]['cost'];
-		$minionpage .= ' <a href="# class="button" style="display:block;clear:both;padding-top:20px;" onClick="performAct(-1,\'newhireling\');">New servant ('.$hirelingprice.' gold)</a>';
+		$minionpage .= ' <a href="#" class="btn" onClick="performAct(-1,\'newhireling\');">New servant ('.$hirelingprice.' gold)</a>';
 
 
 $response['feedback'] .= $minionpage.javaCheck();

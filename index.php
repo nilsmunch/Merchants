@@ -17,6 +17,7 @@ $_SESSION['inventoryReload'] = false;
 $_SESSION['achievementsReload'] = false;
 $_SESSION['mainscreenReload'] = false;
 ?><!DOCTYPE html>
+
 <html style="height:100%">
 <head>
     <title>Merchants</title>
@@ -25,13 +26,15 @@ $_SESSION['mainscreenReload'] = false;
 
 <LINK href="/media/css/style.css" rel="stylesheet" type="text/css">
 
-	<link href="/media/css/skilltree.css" rel="stylesheet">
+<link href="/media/css/skilltree.css" rel="stylesheet">
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <script src="/src/howler.js"></script>
 
 <link href="/src/jquery.notice.css" type="text/css" media="screen" rel="stylesheet" />
 <script src="/src/jquery.notice.js" type="text/javascript"></script>
 <script type="text/javascript">
+
+var musicDisabled;
 
 function itemConsume(item) {
 	$.ajax({ url: "ajax_consume.php?item="+item}).done(function( msg ) {
@@ -46,6 +49,20 @@ function refreshXP() {
 	});
 	$.ajax({ url: "ajax_xp_level.php"}).done(function( msg ) {
     		document.getElementById("level").innerHTML = msg;
+	});
+}
+
+function refreshServants() {
+	$.ajax({ url: "ajax_servants.php"}).done(function( msg ) {
+    		document.getElementById("result").innerHTML = msg;
+	});
+}
+
+
+function openHeroes(action,target) {
+	showView('#heroes');
+	$.ajax({ url: "ajax_heroes.php?action="+action+"&target="+target}).done(function( msg ) {
+    		document.getElementById("heroes").innerHTML = msg;
 	});
 }
 
@@ -69,8 +86,8 @@ function openAuction() {
 	auctionhouseAction();
 }
 
-function auctionhouseAction(action,target,detail) {
-	$.ajax({ url: "ajax_auctionhouse.php?action="+action+"&target="+target+"&detail="+detail}).done(function( msg ) {
+function auctionhouseAction(action,target,detail,secondary,currency) {
+	$.ajax({ url: "ajax_auctionhouse.php?action="+action+"&target="+target+"&detail="+detail+"&secondary="+secondary+"&currency="+currency}).done(function( msg ) {
     		document.getElementById("auction").innerHTML = msg;
 	});
 }
@@ -85,6 +102,7 @@ function openTaskassign(action,target) {
 	$.ajax({ url: "ajax_taskassign.php?action="+action+"&target="+target}).done(function( msg ) {
 	$("div#taskassign").show();
     		document.getElementById("taskassign").innerHTML = msg;
+    		refreshServants();
 	});
 }
 
@@ -120,44 +138,73 @@ function openInventory() {
 	});
 }
 
+function openAchievements() {
+    document.getElementById("achievements").innerHTML = "Loading achievements...";
+	showView('#achievements');
+	$.ajax({ url: "ajax_achievements.php"}).done(function( msg ) {
+    		document.getElementById("achievements").innerHTML = msg;
+	});
+}
+
 function minionCollectGoods(subtype,goonPip) {
 	if (subtype == "collect_from_goon") {
-    	document.getElementById("min"+goonPip).innerHTML = "<span>Moving goods to storage..</span>";
+    	document.getElementById("min"+goonPip).innerHTML = "<a href='#'>Moving goods to storage..</a>";
 	$.ajax({ url: "ajax_collect.php?minion="+goonPip+"&type="+subtype}).done(function( msg ) {
-    		document.getElementById("min"+goonPip).innerHTML = "<span>Moving goods to storage..</span>";
+    		document.getElementById("min"+goonPip).innerHTML = "<a href='#'>Moving goods to storage..</a>";
 	});
 	}
 	if (subtype == "ach_claimed") {
-    	document.getElementById("achievements").innerHTML = "Moving rewards to storage..";
-	$.ajax({ url: "ajax_collect.php?minion="+goonPip+"&type="+subtype});
+		$.ajax({ url: "ajax_collect.php?minion="+goonPip+"&type="+subtype}).done(function( msg ) {
+    		openAchievements();
+	});
 	}
 }
 
 function gearupGoonWear(goonPip,item) {
     	document.getElementById("gearup").innerHTML = "Loading...";
-	$.ajax({ url: "ajax_gearup.php?minion="+goonPip+"&item="+item});
+	$.ajax({ url: "ajax_gearup.php?minion="+goonPip+"&item="+item}).done(function( msg ) {
+    		document.getElementById("gearup").innerHTML = msg;
+	});
 }
 
 function gearupGoonUnwear(goonPip,item) {
     	document.getElementById("gearup").innerHTML = "Loading...";
-	$.ajax({ url: "ajax_gearup.php?minion="+goonPip+"&uitem="+item});
+	$.ajax({ url: "ajax_gearup.php?minion="+goonPip+"&uitem="+item}).done(function( msg ) {
+    		document.getElementById("gearup").innerHTML = msg;
+	});
 }
 
 function gearupGoon(goonPip) {
 	showView('#gearup');
-    	document.getElementById("gearup").innerHTML = "Loading...";
-	$.ajax({ url: "ajax_gearup.php?minion="+goonPip});
+    document.getElementById("gearup").innerHTML = "Loading...";
+	$.ajax({ url: "ajax_gearup.php?minion="+goonPip}).done(function( msg ) {
+    		document.getElementById("gearup").innerHTML = msg;
+	});
 }
 
+
+function performAct(pip, actName){
+	$("div#taskassign").hide();
+	if (pip == -1) {
+    		document.getElementById("result").innerHTML = "Loading...";
+	}
+	$.ajax({url: "action.php?act="+actName+"&minion="+pip, context: document.body}).done(function( msg ) {
+		refreshServants();
+	});
+  }
+
 function showView(focusview) {
+	if (focusview == "#result") {refreshServants();}
 	$("div#taskassign").hide();
 	$(".maingameTabs").hide();
 	$("div"+focusview).show();
 	$(".sidemenu a").removeClass("active");
 	$(".sidemenu a#link_"+focusview.replace("#","")).addClass("active");
+	if (!musicDisabled) {
 	var sound = new Howl({
 	  urls: ['/media/sfx/paper.mp3']
 	}).play();
+	}
 	refreshXP();
 }
 
@@ -170,7 +217,15 @@ var audioPlayer = document.getElementsByTagName('audio')[0];
             }
 }
 
+
+function toggleSFX() {
+	musicDisabled = !musicDisabled;
+}
+
+
+
 refreshXP();
+refreshServants();
 
 var source;
 
@@ -180,52 +235,34 @@ if(typeof(EventSource)!=="undefined")
 
 	source.addEventListener('message', function(e) {
 	  	var data = JSON.parse(e.data);
-    		document.getElementById("result").innerHTML = data.feedback;
+	  //	
+		for (key in data) {
+			if (data[key] != null && document.getElementById(key) != null) {
+				document.getElementById(key).outerHTML = data[key];
+			}
+	  	}
 	}, false);
-	source.addEventListener('inventory', function(e) {
-	  var data = JSON.parse(e.data);
-    		document.getElementById("inventory").innerHTML = data.html;
-	}, false);
-
+	
 	source.addEventListener('achievements', function(e) {
 	  	var data = JSON.parse(e.data);
-    		document.getElementById("achievements").innerHTML = data.html;
-    		document.getElementById("achievements_badge").innerHTML = data.badge;
-	}, false);
-
-
-	source.addEventListener('gearup', function(e) {
-	  	var data = JSON.parse(e.data);
-    		document.getElementById("gearup").innerHTML = data.html;
+		document.getElementById("achievements_badge").innerHTML = data.badge;
 	}, false);
   }
 else
   {
   document.getElementById("result").innerHTML="Sorry, your browser does not support server-sent events...";
   }
-
-function performAct(pip, actName){
-	$("div#taskassign").hide();
-if (pip == -1) {
-    		document.getElementById("result").innerHTML = "Loading...";
-}
-$.ajax({
-  url: "action.php?act="+actName+"&minion="+pip,
-  context: document.body
-}).done(function( msg ) {
-    		document.getElementById("min"+pip).innerHTML = msg.data;
-	});
-  }
 </script>
 
 </head>
 <body style="height:100%">
-<table style="width:100%;margin:0px;height:100%" cellspacing=0 cellpadding=0><tr><td valign=top width=200>
-<div id="profile" class="sidemenu" style="padding-left:10px;padding-top:10px;">
+<table style="width:100%;margin:0px;height:100%;bottom:0px;" cellspacing=0 cellpadding=0><tr><td valign=top width=200>
+<div id="profile" class="sidemenu" style="padding-top:10px;">
 <?include('modules/sidemenu_profile.php');?>
 &nbsp;
 <a href="<?echo $logoutUrl?>" style="display:block">Log out</a>
 <a href="#" onClick='toggleMusic()' style="display:block">Toggle music</a>
+<a href="#" onClick='toggleSFX()' style="display:block">Toggle SFX</a>
 
 <?
 
@@ -240,18 +277,19 @@ echo '<a href="http://www.facebook.com/merchantsrpg" target="_BLANK" style="disp
 
 ?>
 </div>
-<td valign=top class="parch" style="padding:8px">
-<div id="taskassign" style="display:none"></div>
-<div id="result" class="maingameTabs" style="min-height:200px;"></div>
-<div id="inventory" class="maingameTabs" style="display:none"></div>
-<div id="gearup" class="maingameTabs" style="display:none;">howdy</div>
-<div id="achievements" class="maingameTabs" style="display:none"></div>
-<div id="marketplace" class="maingameTabs" style="display:none"></div>
-<div id="scoreboard" class="maingameTabs" style="display:none"></div>
-<div id="quests" class="maingameTabs" style="display:none"></div>
-<div id="crafting" class="maingameTabs" style="display:none"></div>
-<div id="auction" class="maingameTabs" style="display:none"></div>
-<div id="skills" class="maingameTabs" style="display:none"></div>
+<td valign=top class="parch">
+<div id="taskassign" style="display:none;padding:8px"></div>
+<div id="result" class="maingameTabs" style="min-height:200px;;padding:8px"></div>
+<div id="inventory" class="maingameTabs" style="display:none;padding:8px"></div>
+<div id="heroes" class="maingameTabs" style="display:none;padding:8px"></div>
+<div id="gearup" class="maingameTabs" style="display:none;padding:8px;">howdy</div>
+<div id="achievements" class="maingameTabs" style="display:none;padding:8px"></div>
+<div id="marketplace" class="maingameTabs" style="display:none;padding:8px"></div>
+<div id="scoreboard" class="maingameTabs" style="display:none;padding:8px"></div>
+<div id="quests" class="maingameTabs" style="display:none;padding:8px"></div>
+<div id="crafting" class="maingameTabs" style="display:none;padding:8px"></div>
+<div id="auction" class="maingameTabs" style="display:none;padding:8px"></div>
+<div id="skills" class="maingameTabs" style="display:none;height:100%;background-color:#271f15;background-image:url('/media/art/backdrop_skills.jpg');background-position:center;background-repeat:no-repeat"></div>
 
 
 </table>

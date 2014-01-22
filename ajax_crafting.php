@@ -1,17 +1,23 @@
 <?
 
-	session_start();
+session_start();
+include('../config.php');
 
 include('databanks/skills.php');
 include('databanks/items.php');
+include('modules/skills.php');
 include('modules/minions.php');
 include('databanks/actions.php');
 include('databanks/formulations.php');
 
 include('modules/inventoryitems.php');
 include('modules/inventoryicons.php');
+include('modules/tasks.php');
 
 	$g = $_SESSION['game_variables'];
+	
+$bonuses = countPlayerSkills();
+
 
 
 if ($_GET['action'] == 'craftings') {
@@ -30,62 +36,70 @@ function shopTap($shop) {
 
 
 	$assistants = array();
-foreach ($g['minions'] as $pit => $min) {
+foreach ((array)$g['minions'] as $pit => $min) {
 	$slot = 0;
-	foreach ($min['items'] as $key) {
+	foreach ((array)$min['items'] as $key) {
 		if (strstr($key,':')) {
 			$itmbits = explode(':',$key); $key = $itmbits[0];
 			}
 			$itemdata = $itembank[$key];
 			if ($itemdata['skillgrant']) {
-				$assistants[$itemdata['skillgrant']][$pit] = $pit;
+				$assistants[$itemdata['skillgrant']][] = $pit;
 			}
 	}
 
 }
+unset($assistants['passive']);
 
 // RECIPES
 
+
+array_sort($actionbank,'time');
+$actionbank = array_reverse($actionbank);
+$recipesstored=0;
 foreach ($actionbank as $key => $opt) {
+	if ($opt['gearneed'] != $thisshop) {continue;}
 	if ($opt['itemgain']) {
 	$taskbox = '';
 	$bring = false;
 	$ing = '';
 	$inglist = '';
 	if ($opt['requirements']) {
-		foreach ($opt['requirements'] as $req) {
-			if ($req['type']=='itemqty') {
-				$count = 1;
-				$ingdata = $itembank[$req['item']];
-				$hasqty = $g['inventory'][$req['item']];
-				while ($count <= $req['cost']) {
-					$inglist .= itemIcon($ingdata,'border:2px solid '.($hasqty >= $count ? 'green':'red'),40);
-					if (!($hasqty >= $count)) {
-						$bring = 'res';
-					}
-					$count ++;
-				}
-			}
-		}
+		$inglist .= costBox($opt['requirements']);
 	}
+		$inglist .= ' <font style="font-size: 12px;color:white;background-color:rgba(0,0,0,0.4);padding:4px;position:absolute;bottom:0px;right:0px">'.timeFormulate($opt['time']).'</font>';
 	$details = '';
 	$itemdata = $itembank[$opt['itemgain']];
 
 
 $needs_recipe = false;
-if ($itemdata['craft_recipekey']) {
-	if (!$g['lifetime']['recipes_read'][$itemdata['craft_recipekey']]) {
+if ($opt['craft_recipekey']) {
+	if (!$g['lifetime']['recipes_read'][$opt['craft_recipekey']]) {
+		$recipesstored++;
 		$needs_recipe = true;
 	}
 }
 
+
+if (isAdmin()) {$needs_recipe = false;}
+
 //if ($needs_recipe) {$taskbox = '<tr><td colspan=3 style="background-color:grey;padding:3px;">You have not read '.$itemdata['name'].' recipe';}
 
 if (!$needs_recipe) {
-$taskbox = itemIcon($itemdata).'<td valign=top style="padding:3px;background-color:black;color:white">'.($itemdata['craft_qty'] != 1 ? $itemdata['craft_qty'].' x ': '').$itemdata['name'].showItemBox($opt['itemgain'],1,'description').'<td>'.$inglist;
-	
-$taskbox .= '<td style="text-align:right">';
 
+$craftlevel = $opt['craftlevel'];
+
+$detailtext = '';
+if ($opt['optimized']) {$detailtext = '<div class="itembonus" style="color:cyan !important">Optimized : '.$opt['optimized'].'% less materials needed</div>';}
+
+$taskbox = itemIcon($itemdata).'<td valign=top style="padding:3px;background-color:black;color:white" width=250>'.showItemBox($opt['itemgain'],$opt['qty'],'short').$detailtext.'<td width=40% style="position:relative;padding-left:3px;" class="ingbox">'.$inglist.'';
+	
+$taskbox .= '<td style="text-align:right" width=200>';
+
+
+if (($bonuses['skillup_'.$opt['gearneed']]+1) < $craftlevel) {
+	unset($assistants[$opt['gearneed']]);
+}
 
 foreach ((array)$assistants[$opt['gearneed']] as $ass) {
 	$min = $g['minions'][$ass];
@@ -100,15 +114,23 @@ if (!$bring) {
 if ($min['currentAction']) {
 	$assbox = '<a href="#" style="display:block;font-weight:bold;color:grey;text-decoration:none">Assign '.$min['name'].' (busy)</a>';
 }
+ 
 
-if ($assbox == '') {$assbox = 'You have no servants with the proper tools for this craft.';}
-
-$taskbox .= $assbox;
+	$taskbox .= $assbox;
 }
 
-	$taskbox = '<tr><td width=10>'.$taskbox;
+if (($bonuses['skillup_'.$opt['gearneed']]+1) < $craftlevel) {$taskbox .= '<div class="itembonus" style="color:gray">Not high enough skill level for this craft.</div>';} else {
+
+if (count($assistants[$opt['gearneed']]) == 0) {$taskbox .= '<div class="itembonus" style="color:gray">You have no servants with <br>the proper tools for this craft.</div>';}
 }
 
+	$taskbox = '<tr><td width=10 style="background-color:black;" valign=top>'.$taskbox;
+}
+
+if (!$mentioned[$opt['gearneed']][$craftlevel] && $craftlevel) {
+$page[$opt['gearneed']] .= '<tr><th colspan=4 class="craftlevel">Level '.$craftlevel;
+$mentioned[$opt['gearneed']][$craftlevel] = true;
+}
 
 	$page[$opt['gearneed']] .= $taskbox;
 }
@@ -130,4 +152,8 @@ shopTap($skillkey);}
 }
 echo '<td style="background-color:#2d2800;padding:4px;" valign=top><table cellspacing=0 cellpadding=0 width=100%>'.$page[$thisshop].'</table>';
 echo '</table>';
+if ($recipesstored) {
+echo '<div style="text-align:center;">There are still '.$recipesstored.' '.$skillbank[$thisshop]['name'].' recipes left for you to collect...</div>';
+}
+
 ?>

@@ -29,5 +29,6 @@ echo '<img src="/media/art/logo.png" width=600 height=96><br>';
 echo '<a class="btn-auth btn-facebook large" style="margin:20px;left:auto;right:auto" href="'.$loginUrl.'">Login with Facebook</a>';
 
 ?>
-<h1>Still under construction. Closed alpha version. Please don't spread the link or invite others just yet.</h1>
+<h1>Still under construction. Closed alpha version. Please don't spread the link or invite others just yet.<br><br>There are lots of things not working, and there will be bugs.<br><br>
+<a href="https://rink.hockeyapp.net/apps/6137af8a1859dffad156b4b9ca305586">Mobile Alpha</a></h1>
 </div>

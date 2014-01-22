@@ -11,7 +11,7 @@ foreach ($g['minions'] as $pit => $min) {
 	$response['feedback'] = '';
 	if ($action['donetime']) {
 		$actiondata = $actionbank[$action['name']];
-		$timeleft = '<span class="center">'.$actiondata['transitive'].' ('.($action['donetime']-$time).'s) </span>';
+		$timeleft = '<span class="center">'.($actiondata['transitive'] ? $actiondata['transitive'].'<br>' :'').timeFormulate($action['donetime']-$time).' </span>';
 		$process[$pit] = $timeleft;
 		$taskartbank[$pit] = $actiondata['taskart'];
 		

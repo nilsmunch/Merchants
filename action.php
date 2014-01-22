@@ -47,6 +47,8 @@ if ($_GET['minion'] != -1) {
 	$actiondata['time'] = $tasktime['totaltime'];
 }
 
+$_SESSION['seen'.$_GET['minion']] = false;
+
 
 $time += $actiondata['time'];
 
@@ -70,6 +72,12 @@ $time += $actiondata['time'];
 if ($_GET['minion'] == -1) {
 			$qty = ($actiondata['qty'] ? $actiondata['qty'] : 1);
 			if ($actiondata['itemgain']=='hireling') {
+				$g['minions']= array_values($g['minions']); 
+				
+			foreach ($g['minions'] as $pit => $min) {
+				if ($min['name'] == '') {unset($g['minions'][$pit]);}
+			}
+
 				$g['minions'][] = array('name'=>'NEW');
 				$g['lifetime']['minions_hired'] += 1;
 			} else {

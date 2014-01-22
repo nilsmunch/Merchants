@@ -9,6 +9,7 @@ $_SESSION['inventoryReload'] = false;
 $_SESSION['achievementsReload'] = false;
 
 }
+include('../config.php');
 
 $g = $_SESSION['game_variables'];
 
@@ -22,7 +23,6 @@ echo "retry: 1000\n\n";
 $time = date('U');
 
 
-include('../config.php');
 include('modules/db_backup.php');
 include('modules/inventoryitems.php');
 include('modules/inventoryicons.php');
@@ -31,12 +31,8 @@ include('modules/minions.php');
 
 include('process_miniontasks.php');
 
-
-
-include('panel_inventory.php');
 include('panel_hirelings.php');
 include('panel_achievements.php');
-include('panel_goongear.php');
 // Saving
 
 db_saveUserCheck();
@@ -45,6 +41,7 @@ db_saveUserCheck();
 
 if ((int)$_SESSION['mainscreenReload'] < 2) {
 echo 'event: message'."\n";
+unset($response['feedback']);
 echo 'data: '.json_encode($response)."\n\n";
 $_SESSION['mainscreenReload'] += 1;
 }
@@ -55,21 +52,9 @@ echo 'data: '.json_encode($optionbar)."\n\n";
 $_SESSION['optionBarReload'] = true;
 }
 
-/*
-if (!$_SESSION['inventoryReload']) {
-echo 'event: inventory'."\n";
-echo 'data: '.json_encode($inventorywindow)."\n\n";
-$_SESSION['inventoryReload'] = true;
-}
-*/
-
-if (!$_SESSION['goongearReload']) {
-echo 'event: gearup'."\n";
-echo 'data: '.json_encode($goongear)."\n\n";
-$_SESSION['goongearReload'] = true;
-}
 if (!$_SESSION['achievementsReload']) {
 echo 'event: achievements'."\n";
+unset($achievementWindow['html']);
 echo 'data: '.json_encode($achievementWindow)."\n\n";
 $_SESSION['achievementsReload'] = true;
 }

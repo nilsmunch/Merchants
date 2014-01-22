@@ -1,6 +1,6 @@
 <?
-
-$xmasduration = 3;
+/*
+$xmasduration = 30*60;
 
 $time = date('U');
 	$gift_open = !$g['lastgift_time'] || (($g['lastgift_time']-$time)<= -$xmasduration);
@@ -14,5 +14,5 @@ $g['lastgift_time'] = $time;
 	$_SESSION['game_variables'] = $g;
 	
 	}
-
+*/
 ?>

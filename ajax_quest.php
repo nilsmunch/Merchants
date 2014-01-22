@@ -1,6 +1,19 @@
 <?
 
 
+$questbuffer = 60*30;
+$questduration = 60*60*7;
+
+$timeperitem = 10;
+
+function takesTime($items) {
+	global $timeperitem;
+	if ($items >= 10) {$items -= 4;}
+	if ($items >= 500) {$items -= 46*6;}
+	
+	return $items * $timeperitem;
+}
+
 $prizes[1] = 'book_floras';
 $prizes[2] = 'boots_mirkweave';
 $prizes[3] = 'favor_coin';
@@ -12,6 +25,11 @@ include('databanks/items.php');
 include('modules/inventoryitems.php');
 include('modules/inventoryicons.php');
 include('modules/db_backup.php');
+include_once('gamemanagers/g_pushnotifications.php');
+
+
+$time = date('U');
+
 	$user = (int)$_SESSION['userid'];
 
 if (!$user) {die('Session error...');}
@@ -38,10 +56,8 @@ die(javaCheck());
 }
 
 
-$questbuffer = 60*60*1;
-$questduration = 60*60*5;
 function writeCache($key,$object) {
-	$apiFile = 'databanks/gameworld_'.$key.'.php';
+	$apiFile = 'gameworld/'.$key.'.php';
 	$final =  '<? global $lib_'.$key.'; $lib_'.$key.' = '.var_export($object,true).'; ?>';
 	$fh = fopen($apiFile, 'w');
 	fwrite($fh, $final);
@@ -49,10 +65,10 @@ function writeCache($key,$object) {
 }
 
 $time = date('U');
-	include('databanks/gameworld_quests.php');
+	include('gameworld/livequests.php');
 	include('databanks/quests.php');
 
-$questlist = $lib_quests;
+$questlist = $lib_livequests;
 $shuffle = false;
 	$g = $_SESSION['game_variables'];
 
@@ -66,15 +82,19 @@ if ($_GET['action'] && $questlist[$_GET['action']]) {
 	$can = pricecheck($commodity,$qty,true);
 
 	if ($can) {
-		$notif = 'Transaction complete! Thank you for your donations.';
+		$notif = 'The wares have been sent off, and you will be able to deliver a new batch again soon.';
 		
 	$entry = mysql_fetch_assoc(mysql_query('SELECT * FROM merch_quest_input WHERE player = '.$user.' AND quest = "'.$_GET['action'].'"'));
 	if ($entry) {
 		$_SESSION['questcont_'.$_GET['action'].'_'.$quest['endtime']] = $entry['input'] + $qty;
 		mysql_query('UPDATE merch_quest_input SET input = input + '.$qty.' WHERE player = '.$user.' AND quest = "'.$_GET['action'].'"');
+		$g['quest']['enroute'] = $qty;
+		$g['quest']['postagain'] = $time + takesTime($qty);
 	} else {
 		mysql_query('INSERT INTO merch_quest_input (player,quest,input) values ('.$user.',"'.$_GET['action'].'",'.$qty.')');
 		$_SESSION['questcont_'.$_GET['action'].'_'.$quest['endtime']] = $qty;
+		$g['quest']['enroute'] = $qty;
+		$g['quest']['postagain'] = $time + takesTime($qty);
 	}
 	} else {
 		$notif = 'You do not have the requested items!';
@@ -103,18 +123,28 @@ foreach ((array)$questlist as $qid => $quest) {
 echo '<div style="padding:20px;">'.nl2br($quest['flair']).'</div>';
 
 echo '<h2>Items requested :</h2>';
-	$itemdata = $itembank[$quest['askingitem']];
-	echo 'You have contributed : '.$cont.' x '.$itemdata['name_plural'];
-	echo ' <a href="#" class="questcont" onClick="openQuests(\''.$qid.'\',1);">+1</a>';
-	if ($g['inventory'][$quest['askingitem']] > 10) {
-	echo ' <a href="#" class="questcont" onClick="openQuests(\''.$qid.'\',10);">+10</a>';
-	}
-	if ($g['inventory'][$quest['askingitem']] > 100) {
-	echo ' <a href="#" class="questcont" onClick="openQuests(\''.$qid.'\',100);">+100</a>';
-	}
-	if ($g['inventory'][$quest['askingitem']] > 250) {	echo ' <a href="#" class="questcont" onClick="openQuests(\''.$qid.'\',250);">+250</a>';	}
-	if ($g['inventory'][$quest['askingitem']] > 1000) {	echo ' <a href="#" class="questcont" onClick="openQuests(\''.$qid.'\',1000);">+1.000</a>';	}
+	$entry = mysql_fetch_assoc(mysql_query('SELECT input FROM merch_quest_input WHERE player = '.$user.''));
 	echo showItemBox($quest['askingitem'],1);
+	$itemdata = $itembank[$quest['askingitem']];
+	
+	if ($g['quest']['postagain'] >= $time) {
+	
+		echo 'You have contributed : '.((int)$entry['input']-$g['quest']['enroute']).' '.$itemdata['name_plural'];
+		echo ' (En route: '.$g['quest']['enroute'].' x '.$itemdata['name_plural'].')<br>Delivery will again be possible : '.timeFormulate($g['quest']['postagain'] - $time);;
+	} else {
+	echo 'You have contributed : '.(int)$entry['input'].' '.$itemdata['name_plural'];
+	$g['quest']['enroute'] = 0;
+	echo '<br><a href="#" class="btn" style="display:block;float:right;clear:none" onClick="openQuests(\''.$qid.'\',1);">Send 1 ('.timeFormulate(takesTime(1)).')</a>';
+	if ($g['inventory'][$quest['askingitem']] >= 10) {
+		echo '<a href="#" class="btn" style="display:block;float:right;clear:none" onClick="openQuests(\''.$qid.'\',10);">Send 10 ('.timeFormulate(takesTime(10)).')</a>';
+	}
+	if ($g['inventory'][$quest['askingitem']] >= 100) {
+	echo '<a href="#" class="btn" style="display:block;float:right;clear:none" onClick="openQuests(\''.$qid.'\',100);">Send 100 ('.timeFormulate(takesTime(100)).')</a>';
+	}
+	if ($g['inventory'][$quest['askingitem']] >= 250) {	echo '<a href="#" style="display:block;float:right;clear:none" class="btn" onClick="openQuests(\''.$qid.'\',250);">Send 250 ('.timeFormulate(takesTime(250)).')</a>';	}
+	if ($g['inventory'][$quest['askingitem']] >= 1000) {	echo '<a href="#" style="display:block;float:right;clear:none" class="btn" onClick="openQuests(\''.$qid.'\',1000);">Send 1.000 ('.timeFormulate(takesTime(1000)).')</a>';	}
+	
+	}
 
 echo '<h2>Top contributors :</h2>';
 
@@ -144,8 +174,8 @@ $numbr = substr($cont['input'], 0,1);
 	if (strlen($numbr) == 1) {$numbr = '?';}
 
 	if (isAdmin()) {$numbr = $cont['input'];}
-	if ($cont['player'] == $user) {$numbr = '<font style="color:purple">'.$cont['input'].'</font>';}
- echo '<td style="text-align:center" width=33%><img src="https://graph.facebook.com/'.$cont['fb_id'].'/picture" style="height:50px;float:left;width:50px;border:1px solid black;"><div style="font-size:26px">'.$numbr.'</div>'.$cont['playername'];}
+	if ($cont['player'] == $user) {$numbr = '<font style="color:purple">'.($cont['input']-$g['quest']['enroute']).'</font>';}
+ echo '<td style="text-align:center" width=33%><img src="https://graph.facebook.com/'.$cont['fb_id'].'/picture" style="height:50px;width:50px;border:1px solid black;"><div style="font-size:26px">'.$numbr.'</div>'.$cont['playername'];}
 
 }
 echo '</table>';
@@ -205,14 +235,16 @@ if ($shuffle) {
 	while (count($newquestlist) < 1) {
 		shuffle($tombola);
 		$pick = $questbank[$tombola[0]];
-		if (in_array($tombola[0],(array)array_keys($questlist))) {unset($pick);}
+		if (in_array($tombola[0],(array)array_keys((array)$questlist))) {unset($pick);}
 		if ($pick) {
 			$pick['endtime'] = $time + $questduration;
+			if ($pick['timelapse']) {$pick['endtime'] = $time + ($pick['timelapse']*$questduration);}
 			$newquestlist[$tombola[0]] = $pick;
+			pushMessage('New quest cycle : '.$pick['title']);
 		}
 	}
 	$questlist = $newquestlist;
-	writeCache('quests',$questlist);
+	writeCache('livequests',$questlist);
 }
 
 ?>

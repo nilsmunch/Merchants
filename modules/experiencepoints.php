@@ -23,6 +23,12 @@ function xp_gain($points,$reason='') {
 	global $g,$run_js;
 	if (!$points) {$points = 1;}
 	$g['xp'] += $points;
+	
+	$run_js .= 'jQuery.noticeAdd({
+				text: "+ '.$points.' XP",
+				stay: false
+			});';
+			
 	if ($reason) {
 		$g['lifetime']['xpgained_'.$reason] += $points;
 	}

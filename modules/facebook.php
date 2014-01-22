@@ -1,6 +1,9 @@
 <?php
 require('src/facebook.php');
 
+include_once('gamemanagers/g_pushnotifications.php');
+
+if ($_SERVER['SERVER_NAME'] != 'merch.con') {
 
 $facebook = new Facebook(array(
   'appId'  => '581807798535415',
@@ -8,6 +11,7 @@ $facebook = new Facebook(array(
 ));
 
 $user = $facebook->getUser();
+}
 if ($_SERVER['SERVER_NAME'] == 'merch.con') {
 	$user = 524375268;
 }
@@ -33,14 +37,15 @@ if ($user) {
 	if (!$_SESSION['userdata']) {
 		db_connect();
 		$userdata = mysql_fetch_assoc(mysql_query('SELECT * FROM merch_players WHERE fb_id = "'.(int)$user.'"'));
+		if ($_SERVER['SERVER_NAME'] != 'merch.con') {$fb = $facebook->api('/me');}
 		if (!$userdata) {
 			mysql_query('INSERT INTO merch_players (fb_id) VALUES ("'.(int)$user.'")');
 			$userdata = mysql_fetch_assoc(mysql_query('SELECT * FROM merch_players WHERE fb_id = "'.(int)$user.'"'));
+			pushMessage($fb['name'].' joined Merchants');
 		}
 		$_SESSION['game_variables'] = json_decode($userdata['player_data'],true);
 		$_SESSION['userdata'] = $userdata;
 		$_SESSION['userid'] = $user;
-		$fb = $facebook->api('/me');
 		$_SESSION['userdata']['fb'] = $fb;
 		mysql_query('UPDATE merch_players SET playername = "'.$fb['name'].'" WHERE fb_id = "'.$user.'"') or die('name entry error');
 		mysql_query('UPDATE merch_players SET sessionid = "'.session_id().'" WHERE fb_id = "'.$user.'"') or die('name entry error');
